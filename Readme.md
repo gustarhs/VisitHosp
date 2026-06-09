@@ -22,7 +22,7 @@ O projeto foi desenvolvido utilizando as seguintes tecnologias:
 
 * **Frontend:** HTML, CSS, JS
 * **Backend:** Flask (Python)  
-* **Banco de Dados:** MySQL
+* **Banco de Dados:** MySQL Workbench
 * **Ferramentas & Outros:** Docker, Figma, N8N, Google Maps API, Bibliotecas de Criptografia, Draw.io
 
 ---
