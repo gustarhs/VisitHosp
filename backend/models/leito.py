@@ -1,6 +1,6 @@
 from database import db
 
-class LeitoModel(db.Model):
+class Leito(db.Model):
     __tablename__ = 'leito'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)

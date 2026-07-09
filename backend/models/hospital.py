@@ -1,6 +1,6 @@
 from database import db
 
-class HospitalModel(db.Model):
+class Hospital(db.Model):
     __tablename__ = 'hospital'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)

@@ -1,6 +1,6 @@
 from database import db
 
-class VisitaModel(db.Model):
+class Visita(db.Model):
     __tablename__ = 'visita'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)

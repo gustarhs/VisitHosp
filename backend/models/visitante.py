@@ -1,13 +1,13 @@
 from database import db  # Seu arquivo de configuração do SQLAlchemy
 
-class VisitanteModel(db.Model):
+class Visitante(db.Model):
     __tablename__ = 'visitante'
 
     id = db.Column(db.Integer, primary_key=True)
     status = db.Column(db.Boolean, nullable=False)
     tipo = db.Column(db.String(20), nullable=False)
-    nome = db.Column(db.String(100), nullable=False))
-    data_nascimento = db.Column(db.DateTime, nullable=False))
+    nome = db.Column(db.String(100), nullable=False)
+    data_nascimento = db.Column(db.DateTime, nullable=False)
     termo_consentimento = db.Column(db.Boolean, nullable=False)
     cpf = db.Column(db.String(20), nullable=False, unique=True)
 
