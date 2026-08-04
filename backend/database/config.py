@@ -1,10 +1,14 @@
-from flask import Flask
+from dotenv import load_dotenv
+import os
 
-from config import Config
-from database import db
+load_dotenv()
 
-app = Flask(__name__)
+class Config:
+    SQLALCHEMY_DATABASE_URI = (
+        f"mysql+pymysql://{os.getenv('DB_USER')}:"
+        f"{os.getenv('DB_PASSWORD')}@"
+        f"{os.getenv('DB_HOST')}/"
+        f"{os.getenv('DB_NAME')}"
+    )
 
-app.config.from_object(Config)
-
-db.init_app(app)
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
