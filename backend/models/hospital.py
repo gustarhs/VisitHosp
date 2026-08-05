@@ -1,4 +1,4 @@
-from database import db
+from extensions import db
 
 class Hospital(db.Model):
     __tablename__ = 'hospital'
@@ -21,3 +21,36 @@ class Hospital(db.Model):
             "cidade": self.cidade,
             "estado": self.estado
         }
+
+    def salvar(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def deletar(self):
+        db.session.delete(self)
+        db.session.commit()
+
+    @staticmethod
+    def listar_todos():
+        """READ: retorna todos os hospitais."""
+        return Hospital.query.order_by(Hospital.id.asc()).all()
+
+    @staticmethod
+    def buscar_por_id(id):
+        """READ: busca um hospital pelo id."""
+        return Hospital.query.get(id)
+
+    def atualizar(self, nome=None, horario_visita=None, rua=None, numero=None, cidade=None, estado=None):
+        if nome is not None:
+            self.nome = nome
+        if horario_visita is not None:
+            self.horario_visita = horario_visita
+        if rua is not None:
+            self.rua = rua
+        if numero is not None:
+            self.numero = numero
+        if cidade is not None:
+            self.cidade = cidade
+        if estado is not None:
+            self.estado = estado
+        db.session.commit()

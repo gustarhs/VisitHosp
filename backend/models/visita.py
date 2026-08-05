@@ -1,4 +1,4 @@
-from database import db
+from extensions import db
 
 class Visita(db.Model):
     __tablename__ = 'visita'
@@ -19,3 +19,30 @@ class Visita(db.Model):
             "id_internacao": self.id_internacao,
             "id_triagem": self.id_triagem
         }
+
+    def salvar(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def deletar(self):
+        db.session.delete(self)
+        db.session.commit()
+
+    @staticmethod
+    def listar_todos():
+        """READ: retorna todas as visitas."""
+        return Visita.query.order_by(Visita.id.asc()).all()
+
+    @staticmethod
+    def buscar_por_id(id):
+        """READ: busca uma visita pelo id."""
+        return Visita.query.get(id)
+
+    def atualizar(self, data_hora=None, status=None, qr_code=None):
+        if data_hora is not None:
+            self.data_hora = data_hora
+        if status is not None:
+            self.status = status
+        if qr_code is not None:
+            self.qr_code = qr_code
+        db.session.commit()

@@ -1,4 +1,4 @@
-from database import db
+from extensions import db
 
 class Paciente(db.Model):
     __tablename__ = 'paciente'
@@ -19,3 +19,34 @@ class Paciente(db.Model):
             "nome": self.nome,
             "cpf": self.cpf
         }
+
+    def salvar(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def deletar(self):
+        db.session.delete(self)
+        db.session.commit()
+
+    @staticmethod
+    def listar_todos():
+        """READ: retorna todos os pacientes."""
+        return Paciente.query.order_by(Paciente.id.asc()).all()
+
+    @staticmethod
+    def buscar_por_id(id):
+        """READ: busca um paciente pelo id."""
+        return Paciente.query.get(id)
+
+    def atualizar(self, data_nascimento=None, tipo=None, status=None, nome=None, cpf=None):
+        if data_nascimento is not None:
+            self.data_nascimento = data_nascimento
+        if tipo is not None:
+            self.tipo = tipo
+        if status is not None:
+            self.status = status
+        if nome is not None:
+            self.nome = nome
+        if cpf is not None:
+            self.cpf = cpf
+        db.session.commit()
