@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Entrada</title>
+    <link rel="stylesheet" href="inicial.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="script.js" defer></script>
+</head>
+<body>
+    <div id="page">
+        <div class="menu">
+            <div class="cabecalho-menu">
+                <div class="logo">🏥</div>
+                <div class="texts">
+                    <h1>VisitHosp</h1>
+                    <p>Gestão de Visitas</p>
+                </div>
+            </div>
+            <hr class="line">
+            <ul>
+                <li><a href="dashboard.html">🏠 Dashboard</a></li>
+                <li><a href="agendamentos.html">📅 Agendamentos</a></li>
+                <li><a href="token.html">🔐 Tokens</a></li>
+                <li><a href="relatorios.html">🧪 Triagens</a></li>
+                <li><a href="pacientes.html">📊 Pacientes</a></li>
+                <li><a href="vochers.html">🎫 Vouchers</a></li>
+            </ul>
+        </div>
+        <div class="page-content">
+            <header>
+                <div class="header-title">
+                    <h1>Agendamento de Visita</h1>
+                    <p>Selecione a data e hora para agendar sua visita.</p>
+                </div>
+                <div class="header-actions">
+                    <span>🔔</span>
+                    <a href="" class="perfil-header">GS</a>
+                </div>
+            </header>
+            <div class="info">
+                <div class="perfil">GS</div>
+                <div class="info-titles">
+                    <h1>Gustavo Soares</h1>
+                    <p>Quarto 214-B  •  Leito 3  •  Ala Cirúrgica Norte</p>
+                </div>
+                <div class="status-content">
+                    <p class="status">Disponível</p>
+                    <span class="circle"></span>
+                </div>
+            </div>
+            <div class="agendamentos">
+                <div class="callendar">
+                    <h1>Calendário de disponibilidade</h1>
+                </div>
+                <div class="hours">
+                    <h1>Horários Disponíveis - Ter, 14 Jul</h1>
+                    <p>Selecione um horário para confirmar sua visita</p>
+                    <div class="horarios-disponiveis">
+                        <div class="style hor1">
+                            <span>⏰</span>
+                            <div class="info-horarios">
+                                <h1>09:00 – 09:30</h1>
+                                <p>30 minutos de visita</p>
+                            </div>
+                            <div class="status-hours">Livre</div>
+                        </div>
+                        <div class="style hor2">
+                            <span>⏰</span>
+                            <div class="info-horarios">
+                                <h1>09:30 – 10:00</h1>
+                                <p>30 minutos de visita</p>
+                            </div>
+                            <div class="status-hours-lotado">Lotado</div>
+                        </div>
+                        <div class="style hor3">
+                            <span>⏰</span>
+                            <div class="info-horarios">
+                                <h1>10:00 – 10:30</h1>
+                                <p>30 minutos de visita</p>
+                            </div>
+                            <div class="status-hours-quase">Quase cheio</div>
+                        </div>
+                        <div class="style hor4">
+                            <span>⏰</span>
+                            <div class="info-horarios">
+                                <h1>10:30 – 11:00</h1>
+                                <p>30 minutos de visita</p>
+                            </div>
+                            <div class="status-hours-lotado">Lotado</div>
+                        </div>
+                        <div class="style hor5">
+                            <span>⏰</span>
+                            <div class="info-horarios">
+                                <h1>11:00 – 11:30</h1>
+                                <p>30 minutos de visita</p>
+                            </div>
+                            <div class="status-hours">Livre</div>
+                        </div>
+                        <div class="style hor6">
+                            <span>⏰</span>
+                            <div class="info-horarios">
+                                <h1>11:30 – 12:00</h1>
+                                <p>30 minutos de visita</p>
+                            </div>
+                            <div class="status-hours">Livre</div>
+                        </div>
+                    </div>
+                    <button id="confirma" onclick="confirmar()" class="btn-confirmar">Confirmar Visita</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visit Hosp - Login</title>
+    <link rel="stylesheet" href="style.css"></style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="script.js" defer></script>
+</head>
+<body>
+    <div class="page">
+        <div class="left-page">
+            <div class="circle-logo">🏥</div>
+            <h1>VisitHosp</h1>
+            <p class="sub-title">Visitas seguras sempre.</p>
+        <div class="cards">
+            <div class="card-content">🔒 Segurança LGPD</div>
+            <div class="card-content">📱 Token Único por internamento</div>
+            <div class="card-content">⚡Acesso instântaneo</div>
+        </div>
+        <p class="lgpd-left">Conformidade LGPD  •  Dados protegidos por criptografia</p>  
+        </div>
+        <div class="right-page">
+            <div class="card">
+                <h1 class="title">Insira o Token de Acesso</h1>
+                <p class="desc">O token é gerado no leito e fornecido pela equipe de enfermagem. Sem ele, nenhum dado do paciente é exibido.</p>
+                <div class="input-flutuante">
+                    <label class="input-label">Token de Acesso:</label>
+                <span type="text" class="input-placeholder"placeholder="ex:  A3F  —  7K2  —  9MX">ex:  A3F  —  7K2  —  9MX</span>
+            </div>
+                <div class="inputs-box">
+                    <input type="text" required id="input1" oninput="maskTel1()" maxlength="3">
+                    <span class="seperator">-</span>
+                    <input type="text" required id="input2" oninput="maskTel2()" maxlength="3">
+                    <span class="seperator">-</span>
+                    <input type="text" required id="input3" oninput="maskTel3()" maxlength="3">                
+                </div>
+                <button id="button" onclick="validarToken()" type="submit">Verificar Token e Continuar →</button>
+                <p class="p2">Não tem token? Solicite ao enfermeiro no momento da visita.</p>
+                <p class="text-lgpd">🔒  Conformidade LGPD  •  Sem dados expostos sem autenticação</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
