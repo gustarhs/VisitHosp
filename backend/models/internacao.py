@@ -8,6 +8,9 @@ class Internacao(db.Model):
     data_saida = db.Column(db.DateTime, nullable=False)
     status = db.Column(db.Boolean, nullable=False)
     token_acesso = db.Column(db.String(20), nullable=False)
+
+    id_paciente = db.Column(db.Integer, db.ForeignKey('paciente.id'), nullable=False)
+    id_leito = db.Column(db.Integer, db.ForeignKey('leito.id'), nullable=False)
     
     def to_dict(self):
         return {

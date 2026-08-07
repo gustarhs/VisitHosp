@@ -7,6 +7,11 @@ class Visita(db.Model):
     data_hora = db.Column(db.DateTime, nullable=False)
     status = db.Column(db.Boolean, nullable=False)
     qr_code = db.Column(db.String(100), nullable=False, unique=True)
+
+    id_visitante = db.Column(db.Integer, db.ForeignKey('visitante.id'), nullable=False)
+    id_hospital = db.Column(db.Integer, db.ForeignKey('hospital.id'), nullable=False)
+    id_internacao = db.Column(db.Integer, db.ForeignKey('internacao.id'), nullable=False)
+    id_triagem = db.Column(db.Integer, db.ForeignKey('triagem.id'), nullable=True)
   
     def to_dict(self):
         return {
