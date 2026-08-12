@@ -1,62 +1,63 @@
 from models.leito import Leito
 
+class LeitoService:
+    @classmethod
+    def validar_dados_leito(cls, dados):
+        campos_obrigatorios = ["status", "ala", "numero", "andar", "bloco"]
 
-def validar_dados_leito(dados):
-    campos_obrigatorios = ["status", "ala", "numero", "andar", "bloco"]
+        for campo in campos_obrigatorios:
+            valor = dados.get(campo)
+            if valor is None or valor == "":
+                raise ValueError(f"O campo '{campo}' é obrigatório.")
 
-    for campo in campos_obrigatorios:
-        valor = dados.get(campo)
-        if valor is None or valor == "":
-            raise ValueError(f"O campo '{campo}' é obrigatório.")
+        return dados
 
-    return dados
+    @classmethod
+    def criar_leito(cls, dados):
+        dados = cls.validar_dados_leito(dados)
 
+        leito = Leito(
+            status=dados["status"],
+            ala=dados["ala"],
+            numero=dados["numero"],
+            andar=dados["andar"],
+            bloco=dados["bloco"]
+        )
 
-def criar_leito(dados):
-    dados = validar_dados_leito(dados)
+        leito.salvar()
+        return leito
 
-    leito = Leito(
-        status=dados["status"],
-        ala=dados["ala"],
-        numero=dados["numero"],
-        andar=dados["andar"],
-        bloco=dados["bloco"]
-    )
+    @classmethod
+    def listar_leitos(cls):
+        return Leito.listar_todos()
 
-    leito.salvar()
-    return leito
+    @classmethod
+    def buscar_leito(cls, id):
+        return Leito.buscar_por_id(id)
 
+    @classmethod
+    def atualizar_leito(cls, id, dados):
+        leito = Leito.buscar_por_id(id)
 
-def listar_leitos():
-    return Leito.listar_todos()
+        if leito is None:
+            return None
 
+        leito.atualizar(
+            status=dados.get("status"),
+            ala=dados.get("ala"),
+            numero=dados.get("numero"),
+            andar=dados.get("andar"),
+            bloco=dados.get("bloco")
+        )
 
-def buscar_leito(id):
-    return Leito.buscar_por_id(id)
+        return leito
 
-def atualizar_leito(id, dados):
+    @classmethod
+    def deletar_leito(cls, id):
+        leito = Leito.buscar_por_id(id)
 
-    leito = Leito.buscar_por_id(id)
+        if leito is None:
+            return False
 
-    if leito is None:
-        return None
-
-    leito.atualizar(
-        status=dados.get("status"),
-        ala=dados.get("ala"),
-        numero=dados.get("numero"),
-        andar=dados.get("andar"),
-        bloco=dados.get("bloco")
-    )
-
-    return leito
-
-
-def deletar_leito(id):
-    leito = Leito.buscar_por_id(id)
-
-    if leito is None:
-        return False
-
-    leito.deletar()
-    return True
+        leito.deletar()
+        return True

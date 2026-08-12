@@ -1,5 +1,5 @@
-from flask import Blueprint
-from controllers.controllers import InternacaoController
+﻿from flask import Blueprint
+from controllers import InternacaoController
  
 internacao_bp = Blueprint("internacao_bp", __name__)
  

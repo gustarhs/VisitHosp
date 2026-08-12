@@ -1,5 +1,5 @@
-from flask import Blueprint
-from controllers.controllers import LeitoController
+﻿from flask import Blueprint
+from controllers import LeitoController
  
 leito_bp = Blueprint("leito_bp", __name__)
  

@@ -1,5 +1,5 @@
-from flask import Blueprint
-from controllers.controllers import VisitaController
+﻿from flask import Blueprint
+from controllers import VisitaController
  
 visita_bp = Blueprint("visita_bp", __name__)
  

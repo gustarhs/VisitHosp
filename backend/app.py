@@ -2,15 +2,7 @@ from flask import Flask
 
 from config import Config
 from extensions import db
-
-from controllers.hospital_controller import hospital_bp
-from controllers.paciente_controller import paciente_bp
-from controllers.visitante_controller import visitante_bp
-from controllers.leito_controller import leito_bp
-from controllers.triagem_controller import triagem_bp
-from controllers.internacao_controller import internacao_bp
-from controllers.visita_controller import visita_bp
-
+from routes import hospital_bp, paciente_bp, visitante_bp, leito_bp, triagem_bp, internacao_bp, visita_bp
 
 app = Flask(__name__)
 
