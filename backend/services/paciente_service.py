@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from models.paciente import Paciente
+from repositories.paciente_repository import PacienteRepository
 
 class PacienteService:
     @classmethod
@@ -79,3 +80,13 @@ class PacienteService:
 
         paciente.deletar()
         return True
+
+    @classmethod
+    def verificar_bloqueio(cls, id_paciente):
+        """sp_verificar_bloqueio_status_paciente: delega para a Repository."""
+        return PacienteRepository.sp_verificar_bloqueio_status_paciente(id_paciente)
+
+    @classmethod
+    def obter_responsavel(cls, id_paciente):
+        """sp_obter_responsavel_autorizado: delega para a Repository (fallback ADM1 -> ADM2)."""
+        return PacienteRepository.sp_obter_responsavel_autorizado(id_paciente)

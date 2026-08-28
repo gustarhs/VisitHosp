@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from models.visitante import Visitante
+from repositories.visitante_repository import VisitanteRepository
 
 class VisitanteService:
     @classmethod
@@ -81,3 +82,13 @@ class VisitanteService:
 
         visitante.deletar()
         return True
+
+    @classmethod
+    def obter_regras_acesso(cls, id_visitante):
+        """sp_obter_regras_acesso_por_papel: delega para a Repository."""
+        return VisitanteRepository.sp_obter_regras_acesso_por_papel(id_visitante)
+
+    @classmethod
+    def listar_pendentes(cls):
+        """sp_listar_cadastros_pendentes: delega para a Repository."""
+        return VisitanteRepository.sp_listar_cadastros_pendentes()

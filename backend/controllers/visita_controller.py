@@ -1,5 +1,6 @@
 from flask import request, jsonify
 from models import Visita, Visitante, Hospital, Internacao, Triagem
+from services import VisitaService
 from .helpers import parse_datetime, campos_faltando, tratar_erros
 
 class VisitaController:
@@ -98,3 +99,91 @@ class VisitaController:
             return jsonify({"erro": "Visita n�o encontrada"}), 404
         visita.deletar()
         return jsonify({"mensagem": "Visita removida com sucesso"}), 200
+
+    @classmethod
+    @tratar_erros
+    def historico_paciente(cls, id):
+        """sp_historico_visitas_paciente: GET /pacientes/<id>/visitas?data_inicio=...&data_fim=..."""
+        data_inicio = request.args.get('data_inicio')
+        data_fim = request.args.get('data_fim')
+
+        try:
+            historico = VisitaService.historico_por_paciente(id, data_inicio, data_fim)
+        except ValueError as e:
+            return jsonify({"erro": str(e)}), 400
+
+        return jsonify(historico), 200
+
+    @classmethod
+    @tratar_erros
+    def relatorio_auditoria_fluxo(cls):
+        """sp_relatorio_auditoria_fluxo: GET /relatorios/auditoria-fluxo?periodo_inicio=...&periodo_fim=...&id_leito=..."""
+        periodo_inicio = request.args.get('periodo_inicio')
+        periodo_fim = request.args.get('periodo_fim')
+        id_leito = request.args.get('id_leito', type=int)
+
+        if not periodo_inicio or not periodo_fim:
+            return jsonify({"erro": "Par�metros 'periodo_inicio' e 'periodo_fim' s�o obrigat�rios"}), 400
+
+        try:
+            relatorio = VisitaService.relatorio_auditoria(periodo_inicio, periodo_fim, id_leito)
+        except ValueError as e:
+            return jsonify({"erro": str(e)}), 400
+
+        return jsonify(relatorio), 200
+
+    @classmethod
+    @tratar_erros
+    def relatorio_gerencial(cls):
+        """sp_relatorio_gerencial_visitas: GET /relatorios/visitas?periodo_inicio=...&periodo_fim=...&id_paciente=..."""
+        periodo_inicio = request.args.get('periodo_inicio')
+        periodo_fim = request.args.get('periodo_fim')
+        id_paciente = request.args.get('id_paciente', type=int)
+
+        if not periodo_inicio or not periodo_fim:
+            return jsonify({"erro": "Par�metros 'periodo_inicio' e 'periodo_fim' s�o obrigat�rios"}), 400
+
+        try:
+            relatorio = VisitaService.relatorio_gerencial(periodo_inicio, periodo_fim, id_paciente)
+        except ValueError as e:
+            return jsonify({"erro": str(e)}), 400
+
+        return jsonify(relatorio), 200
+
+    @classmethod
+    @tratar_erros
+    def proxima_vaga(cls, id):
+        """sp_verificar_slot_extensao: GET /leitos/<id>/proxima-vaga?horario_agendado=..."""
+        horario_agendado = request.args.get('horario_agendado')
+        if not horario_agendado:
+            return jsonify({"erro": "Par�metro 'horario_agendado' � obrigat�rio (ISO 8601)"}), 400
+
+        try:
+            disponivel = VisitaService.verificar_extensao(id, horario_agendado)
+        except ValueError as e:
+            return jsonify({"erro": str(e)}), 400
+
+        return jsonify({"disponivel_para_extensao": disponivel}), 200
+
+    @classmethod
+    @tratar_erros
+    def pode_gerar_qrcode(cls, id):
+        """sp_validar_janela_qrcode: GET /visitas/<id>/pode-gerar-qrcode"""
+        try:
+            pode_gerar = VisitaService.validar_janela_qrcode(id)
+        except ValueError as e:
+            return jsonify({"erro": str(e)}), 404
+
+        return jsonify({"pode_gerar_qrcode": pode_gerar}), 200
+
+    @classmethod
+    @tratar_erros
+    def validar_entrada_totem(cls):
+        """sp_validar_entrada_totem: POST /totem/validar-entrada  body: {"codigo_qrcode": "..."}"""
+        dados = request.get_json(silent=True)
+        if not dados or not dados.get('codigo_qrcode'):
+            return jsonify({"erro": "Campo 'codigo_qrcode' � obrigat�rio"}), 400
+
+        resultado = VisitaService.validar_entrada(dados['codigo_qrcode'])
+        status_http = 200 if resultado.get('liberado') else 403
+        return jsonify(resultado), status_http

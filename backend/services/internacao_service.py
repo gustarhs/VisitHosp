@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from models.internacao import Internacao
+from repositories.internacao_repository import InternacaoRepository
 
 class InternacaoService:
     @classmethod
@@ -84,3 +85,13 @@ class InternacaoService:
 
         internacao.deletar()
         return True
+
+    @classmethod
+    def cancelar_por_alta(cls, id_leito):
+        """sp_cancelar_acessos_por_alta: dispara a invalidação em lote via Repository."""
+        return InternacaoRepository.sp_cancelar_acessos_por_alta(id_leito)
+
+    @classmethod
+    def validar_token(cls, codigo_token):
+        """sp_validar_token_acesso: delega para a Repository."""
+        return InternacaoRepository.sp_validar_token_acesso(codigo_token)

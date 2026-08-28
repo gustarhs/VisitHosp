@@ -1,5 +1,6 @@
 from flask import request, jsonify
 from models import Internacao, Paciente, Leito
+from services import InternacaoService
 from .helpers import parse_datetime, campos_faltando, tratar_erros
 
 class InternacaoController:
@@ -89,3 +90,25 @@ class InternacaoController:
             return jsonify({"erro": "Interna��o n�o encontrada"}), 404
         internacao.deletar()
         return jsonify({"mensagem": "Interna��o removida com sucesso"}), 200
+
+
+    @classmethod
+    @tratar_erros
+    def dar_alta(cls, id_leito):
+        """sp_cancelar_acessos_por_alta: POST /leitos/<id_leito>/dar-alta"""
+        total_invalidados = InternacaoService.cancelar_por_alta(id_leito)
+        return jsonify({"registros_invalidados": total_invalidados}), 200
+
+    @classmethod
+    @tratar_erros
+    def validar_token(cls):
+        """sp_validar_token_acesso: POST /internacoes/validar-token  body: {"codigo_token": "..."}"""
+        dados = request.get_json(silent=True)
+        if not dados or not dados.get('codigo_token'):
+            return jsonify({"erro": "Campo \'codigo_token\' e obrigatorio"}), 400
+
+        resultado = InternacaoService.validar_token(dados['codigo_token'])
+        if resultado is None:
+            return jsonify({"erro": "Token invalido, expirado ou inexistente"}), 404
+
+        return jsonify(resultado), 200

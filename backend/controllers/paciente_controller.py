@@ -1,5 +1,6 @@
 from flask import request, jsonify
 from models import Paciente
+from services import PacienteService
 from .helpers import parse_datetime, campos_faltando, tratar_erros
 
 class PacienteController:
@@ -76,3 +77,22 @@ class PacienteController:
             return jsonify({"erro": "Paciente n�o encontrado"}), 404
         paciente.deletar()
         return jsonify({"mensagem": "Paciente removido com sucesso"}), 200
+
+    @classmethod
+    @tratar_erros
+    def bloqueio_status(cls, id):
+        """sp_verificar_bloqueio_status_paciente: GET /pacientes/<id>/bloqueio"""
+        try:
+            resultado = PacienteService.verificar_bloqueio(id)
+        except ValueError as e:
+            return jsonify({"erro": str(e)}), 404
+        return jsonify(resultado), 200
+
+    @classmethod
+    @tratar_erros
+    def responsavel_autorizado(cls, id):
+        """sp_obter_responsavel_autorizado: GET /pacientes/<id>/responsavel"""
+        resultado = PacienteService.obter_responsavel(id)
+        if resultado is None:
+            return jsonify({"erro": "Nenhum responsável ativo (ADM1/ADM2) encontrado para este paciente"}), 404
+        return jsonify(resultado), 200

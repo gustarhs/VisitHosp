@@ -1,4 +1,7 @@
+from datetime import datetime
+
 from models.leito import Leito
+from repositories.leito_repository import LeitoRepository
 
 class LeitoService:
     @classmethod
@@ -61,3 +64,13 @@ class LeitoService:
 
         leito.deletar()
         return True
+
+    @classmethod
+    def verificar_disponibilidade_slots(cls, id_leito, data_visita_str):
+        """Valida a entrada e delega a consulta de slots para a Repository (sp_verificar_disponibilidade_slots)."""
+        try:
+            data_visita = datetime.fromisoformat(data_visita_str).date()
+        except (TypeError, ValueError):
+            raise ValueError("data_visita deve estar no formato YYYY-MM-DD")
+
+        return LeitoRepository.sp_verificar_disponibilidade_slots(id_leito, data_visita)

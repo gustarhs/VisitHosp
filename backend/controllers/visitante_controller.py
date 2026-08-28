@@ -1,5 +1,6 @@
 from flask import request, jsonify
 from models import Visitante
+from services import VisitanteService
 from .helpers import parse_datetime, campos_faltando, tratar_erros
 
 class VisitanteController:
@@ -81,3 +82,20 @@ class VisitanteController:
             return jsonify({"erro": "Visitante n�o encontrado"}), 404
         visitante.deletar()
         return jsonify({"mensagem": "Visitante removido com sucesso"}), 200
+
+    @classmethod
+    @tratar_erros
+    def regras_acesso(cls, id):
+        """sp_obter_regras_acesso_por_papel: GET /visitantes/<id>/regras-acesso"""
+        try:
+            regras = VisitanteService.obter_regras_acesso(id)
+        except ValueError as e:
+            return jsonify({"erro": str(e)}), 404
+        return jsonify(regras), 200
+
+    @classmethod
+    @tratar_erros
+    def cadastros_pendentes(cls):
+        """sp_listar_cadastros_pendentes: GET /visitantes/pendentes"""
+        pendentes = VisitanteService.listar_pendentes()
+        return jsonify(pendentes), 200

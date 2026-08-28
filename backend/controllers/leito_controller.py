@@ -1,5 +1,6 @@
 from flask import request, jsonify
 from models import Leito
+from services import LeitoService
 from .helpers import campos_faltando, tratar_erros
 
 class LeitoController:
@@ -65,3 +66,22 @@ class LeitoController:
             return jsonify({"erro": "Leito n�o encontrado"}), 404
         leito.deletar()
         return jsonify({"mensagem": "Leito removido com sucesso"}), 200
+
+    @classmethod
+    @tratar_erros
+    def disponibilidade_slots(cls, id):
+        """sp_verificar_disponibilidade_slots: GET /leitos/<id>/disponibilidade?data_visita=YYYY-MM-DD"""
+        data_visita = request.args.get('data_visita')
+        if not data_visita:
+            return jsonify({"erro": "Parâmetro 'data_visita' é obrigatório (YYYY-MM-DD)"}), 400
+
+        try:
+            slots = LeitoService.verificar_disponibilidade_slots(id, data_visita)
+        except ValueError as e:
+            return jsonify({"erro": str(e)}), 400
+
+        slots_serializados = [
+            {"horario": s["horario"].isoformat(), "vagas_restantes": s["vagas_restantes"]}
+            for s in slots
+        ]
+        return jsonify(slots_serializados), 200

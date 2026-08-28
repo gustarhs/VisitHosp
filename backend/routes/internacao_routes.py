@@ -8,3 +8,5 @@ internacao_bp.add_url_rule("/internacoes/<int:id>", view_func=InternacaoControll
 internacao_bp.add_url_rule("/internacoes", view_func=InternacaoController.cadastrar, methods=["POST"])
 internacao_bp.add_url_rule("/internacoes/<int:id>", view_func=InternacaoController.atualizar, methods=["PUT"])
 internacao_bp.add_url_rule("/internacoes/<int:id>", view_func=InternacaoController.excluir, methods=["DELETE"])
+internacao_bp.add_url_rule("/leitos/<int:id_leito>/dar-alta", view_func=InternacaoController.dar_alta, methods=["POST"])
+internacao_bp.add_url_rule("/internacoes/validar-token", view_func=InternacaoController.validar_token, methods=["POST"])
