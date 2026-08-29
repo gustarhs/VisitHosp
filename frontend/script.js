@@ -1342,8 +1342,16 @@ function confirmarAgendamento() {
     );
 
 
-    // Próxima etapa:
-    // enviar agendamento para o backend.
+    // Salva o agendamento escolhido para a tela de voucher (qrcode.html) exibir.
+    // TODO: quando existir o fluxo real, isso deve virar um POST /visitas
+    // e o id retornado deve ser guardado no lugar da data/horário crus.
+    localStorage.setItem(
+        "visitHospAgendamento",
+        JSON.stringify({
+            data: dataSelecionada,
+            horario: horarioSelecionado
+        })
+    );
 
 
     window.location.href =

@@ -43,11 +43,20 @@ class Visita(db.Model):
         """READ: busca uma visita pelo id."""
         return Visita.query.get(id)
 
-    def atualizar(self, data_hora=None, status=None, qr_code=None):
+    def atualizar(self, data_hora=None, status=None, qr_code=None,
+                  id_visitante=None, id_hospital=None, id_internacao=None, id_triagem=None):
         if data_hora is not None:
             self.data_hora = data_hora
         if status is not None:
             self.status = status
         if qr_code is not None:
             self.qr_code = qr_code
+        if id_visitante is not None:
+            self.id_visitante = id_visitante
+        if id_hospital is not None:
+            self.id_hospital = id_hospital
+        if id_internacao is not None:
+            self.id_internacao = id_internacao
+        if id_triagem is not None:
+            self.id_triagem = id_triagem
         db.session.commit()
