@@ -25,7 +25,7 @@
                 <li><a href="dashboard.html">🏠 Dashboard</a></li>
                 <li><a href="agendamentos.html">📅 Agendamentos</a></li>
                 <li><a href="token.html">🔐 Tokens</a></li>
-                <li><a href="relatorios.html">🧪 Triagens</a></li>
+                <li><a href="token.html">🧪 Triagens</a></li>
                 <li><a href="pacientes.html">📊 Pacientes</a></li>
                 <li><a href="vochers.html">🎫 Vouchers</a></li>
             </ul>
@@ -42,74 +42,36 @@
                 </div>
             </header>
             <div class="info">
-                <div class="perfil">GS</div>
+                <div class="perfil" id="patient-avatar">--</div>
                 <div class="info-titles">
-                    <h1>Gustavo Soares</h1>
-                    <p>Quarto 214-B  •  Leito 3  •  Ala Cirúrgica Norte</p>
+                    <h1 id="patient-name">Carregando...</h1>
+                    <p id="patient-location">Aguardando dados da internação...</p>
                 </div>
-                <div class="status-content">
-                    <p class="status">Disponível</p>
+                <div class="status-content" id="patient-status">
                     <span class="circle"></span>
+                    <span>--</span>
                 </div>
             </div>
             <div class="agendamentos">
                 <div class="callendar">
-                    <h1>Calendário de disponibilidade</h1>
+                    <h1>Calendário de Disponibilidade</h1>
+                    <div class="month-nav">
+                        <button class="nav-arrow" id="prev-month" aria-label="Mês anterior">◀</button>
+                        <span id="current-month">Carregando...</span>
+                        <button class="nav-arrow" id="next-month" aria-label="Próximo mês">▶</button>
+                    </div>
+                    <div class="weekdays">
+                        <span>Dom</span><span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span>Sáb</span>
+                    </div>
+                    <div id="calendar-grid"></div>
+                    <p class="occupancy-label">Ocupação atual do quarto <span id="room-number">--</span>:</p>
+                    <div class="occupancy-bar"><div class="occupancy-fill"></div></div>
                 </div>
                 <div class="hours">
-                    <h1>Horários Disponíveis - Ter, 14 Jul</h1>
+                    <h1>Horários Disponíveis</h1>
                     <p>Selecione um horário para confirmar sua visita</p>
-                    <div class="horarios-disponiveis">
-                        <div class="style hor1">
-                            <span>⏰</span>
-                            <div class="info-horarios">
-                                <h1>09:00 – 09:30</h1>
-                                <p>30 minutos de visita</p>
-                            </div>
-                            <div class="status-hours">Livre</div>
-                        </div>
-                        <div class="style hor2">
-                            <span>⏰</span>
-                            <div class="info-horarios">
-                                <h1>09:30 – 10:00</h1>
-                                <p>30 minutos de visita</p>
-                            </div>
-                            <div class="status-hours-lotado">Lotado</div>
-                        </div>
-                        <div class="style hor3">
-                            <span>⏰</span>
-                            <div class="info-horarios">
-                                <h1>10:00 – 10:30</h1>
-                                <p>30 minutos de visita</p>
-                            </div>
-                            <div class="status-hours-quase">Quase cheio</div>
-                        </div>
-                        <div class="style hor4">
-                            <span>⏰</span>
-                            <div class="info-horarios">
-                                <h1>10:30 – 11:00</h1>
-                                <p>30 minutos de visita</p>
-                            </div>
-                            <div class="status-hours-lotado">Lotado</div>
-                        </div>
-                        <div class="style hor5">
-                            <span>⏰</span>
-                            <div class="info-horarios">
-                                <h1>11:00 – 11:30</h1>
-                                <p>30 minutos de visita</p>
-                            </div>
-                            <div class="status-hours">Livre</div>
-                        </div>
-                        <div class="style hor6">
-                            <span>⏰</span>
-                            <div class="info-horarios">
-                                <h1>11:30 – 12:00</h1>
-                                <p>30 minutos de visita</p>
-                            </div>
-                            <div class="status-hours">Livre</div>
-                        </div>
-                    </div>
-                    <button id="confirma" onclick="confirmar()" class="btn-confirmar">Confirmar Visita</button>
+                    <div class="horarios-disponiveis" id="horarios-disponiveis"></div>
+                    <button id="confirma" onclick="confirmarAgendamento()" class="btn-confirmar" disabled>Confirmar Visita</button>
                 </div>
             </div>
         </div>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página de Entrada</title>
+    <title>Triagem Sanitária</title>
     <link rel="stylesheet" href="token.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,7 +25,7 @@
                 <li><a href="dashboard.html">🏠 Dashboard</a></li>
                 <li><a href="agendamentos.html">📅 Agendamentos</a></li>
                 <li><a href="token.html">🔐 Tokens</a></li>
-                <li><a href="relatorios.html">🧪 Triagens</a></li>
+                <li><a href="token.html">🧪 Triagens</a></li>
                 <li><a href="pacientes.html">📊 Pacientes</a></li>
                 <li><a href="vochers.html">🎫 Vouchers</a></li>
             </ul>
@@ -41,19 +41,124 @@
                     <a href="" class="perfil-header">PERFIL</a>
                 </div>
             </header>
+            <div class="progress-track">
+                <div class="progress-fill"></div>
+            </div>
             <div class="warning">
                 <p>⚠️  Responda com sinceridade. Dados falsos podem comprometer a segurança dos pacientes e geram bloqueio automático do token.</p>
             </div>
             <div class="confirmacao">
-            <div class="perguntas">
-                <h1>Questionário de Sintomas</h1>
-                <p>Você apresentou algum dos sintomas nas últimas 48 horas?</p>
+                <div class="perguntas">
+                    <h1>Questionário de Saúde</h1>
+                    <p>Responda objetivamente. Qualquer resposta "Sim" em um critério de risco pode impedir a visita hoje.</p>
+
+                    <div class="pergunta" data-pergunta data-disqualifica="sim">
+                        <p class="pergunta-numero">1 de 6</p>
+                        <p class="pergunta-texto">Você está com febre agora (temperatura igual ou acima de 37,8°C)?</p>
+                        <div class="resposta-opcoes">
+                            <button type="button" class="opcao-btn" data-valor="nao">Não</button>
+                            <button type="button" class="opcao-btn" data-valor="sim">Sim</button>
+                        </div>
+                    </div>
+
+                    <div class="pergunta" data-pergunta data-disqualifica="sim">
+                        <p class="pergunta-numero">2 de 6</p>
+                        <p class="pergunta-texto">Você foi diagnosticado(a) com alguma doença viral ativa (gripe, COVID-19, catapora, sarampo, etc.) nos últimos 10 dias?</p>
+                        <div class="resposta-opcoes">
+                            <button type="button" class="opcao-btn" data-valor="nao">Não</button>
+                            <button type="button" class="opcao-btn" data-valor="sim">Sim</button>
+                        </div>
+                    </div>
+
+                    <div class="pergunta" data-pergunta data-disqualifica="sim">
+                        <p class="pergunta-numero">3 de 6</p>
+                        <p class="pergunta-texto">Você teve contato direto com alguém com doença infecciosa confirmada nas últimas 48 horas?</p>
+                        <div class="resposta-opcoes">
+                            <button type="button" class="opcao-btn" data-valor="nao">Não</button>
+                            <button type="button" class="opcao-btn" data-valor="sim">Sim</button>
+                        </div>
+                    </div>
+
+                    <div class="pergunta" data-pergunta data-disqualifica="sim">
+                        <p class="pergunta-numero">4 de 6</p>
+                        <p class="pergunta-texto">Você está com tosse, coriza ou dor de garganta neste momento?</p>
+                        <div class="resposta-opcoes">
+                            <button type="button" class="opcao-btn" data-valor="nao">Não</button>
+                            <button type="button" class="opcao-btn" data-valor="sim">Sim</button>
+                        </div>
+                    </div>
+
+                    <div class="pergunta" data-pergunta data-disqualifica="sim">
+                        <p class="pergunta-numero">5 de 6</p>
+                        <p class="pergunta-texto">Você apresentou vômito ou diarreia nas últimas 24 horas?</p>
+                        <div class="resposta-opcoes">
+                            <button type="button" class="opcao-btn" data-valor="nao">Não</button>
+                            <button type="button" class="opcao-btn" data-valor="sim">Sim</button>
+                        </div>
+                    </div>
+
+                    <div class="pergunta" data-pergunta data-disqualifica="sim">
+                        <p class="pergunta-numero">6 de 6</p>
+                        <p class="pergunta-texto">Você possui alguma ferida aberta, lesão de pele ou erupção cutânea visível sem cobertura adequada?</p>
+                        <div class="resposta-opcoes">
+                            <button type="button" class="opcao-btn" data-valor="nao">Não</button>
+                            <button type="button" class="opcao-btn" data-valor="sim">Sim</button>
+                        </div>
+                    </div>
+
+                    <p class="progresso-perguntas" id="progressoPerguntas">0 de 6 perguntas respondidas</p>
+                </div>
+
+                <div class="horarios">
+                    <h1>Documentos e Biometria</h1>
+                    <p>Faça upload dos documentos exigidos para validação</p>
+
+                    <div class="documento" data-status="enviado">
+                        <span class="doc-icon">🪪</span>
+                        <div class="doc-info">
+                            <h2>RG ou CNH</h2>
+                            <span class="doc-badge badge-enviado">Enviado</span>
+                        </div>
+                        <button class="btn-upload btn-upload-feito" disabled>✓ Enviado</button>
+                    </div>
+
+                    <div class="documento" data-status="pendente">
+                        <span class="doc-icon">🤳</span>
+                        <div class="doc-info">
+                            <h2>Selfie biométrica</h2>
+                            <span class="doc-badge badge-pendente">Pendente</span>
+                        </div>
+                        <button class="btn-upload" onclick="uploadDocumento(this)">Fazer upload</button>
+                    </div>
+
+                    <div class="documento" data-status="pendente">
+                        <span class="doc-icon">📄</span>
+                        <div class="doc-info">
+                            <h2>Comprovante de vínculo</h2>
+                            <span class="doc-badge badge-pendente">Pendente</span>
+                        </div>
+                        <button class="btn-upload" onclick="uploadDocumento(this)">Fazer upload</button>
+                    </div>
+
+                    <div class="declaracao">
+                        <h2>Declaração de Saúde</h2>
+                        <p>Declaro que as informações prestadas são verdadeiras e estou ciente das penalidades previstas em caso de omissão.</p>
+                        <div class="declaracao-check">
+                            <div class="checkbox marcado" id="declCheckbox" onclick="alternarDeclaracao()">✓</div>
+                            <span>Concordo com a declaração acima</span>
+                        </div>
+                    </div>
+
+                    <button id="enviarTriagem" class="btn-confirmar" onclick="enviarTriagem()">Enviar Triagem para Validação →</button>
+
+                    <div class="resultado resultado-sucesso escondido" id="resultadoSucesso">
+                        <p>✅ Triagem aprovada! Redirecionando para o QR Code da sua visita...</p>
+                    </div>
+                    <div class="resultado resultado-erro escondido" id="resultadoErro">
+                        <p id="resultadoErroTexto">🚫 Você está impossibilitado de realizar a visita no momento. Procure a equipe de enfermagem para mais orientações.</p>
+                    </div>
+                </div>
             </div>
-            <div class="horarios">
-                <h1>Documentos e Biometria</h1>
-                <p>Faça upload dos documentos exigidos para validação</p>
-            </div>
-        </div>
         </div>
     </div>
 </body>
