@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>VisitHosp - Voucher de Acesso</title>
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="qrcode.css"
+    >
+
+    <!-- Biblioteca para gerar QR Code -->
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"
+    ></script>
+
+    <script
+        src="vochers.js"
+        defer
+    ></script>
+
+</head>
+
+
+<body>
+
+
+<div id="page">
+
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside class="menu">
+
+        <div class="cabecalho-menu">
+
+            <div class="logo">
+                🏥
+            </div>
+
+            <div class="texts">
+
+                <h1>
+                    VisitHosp
+                </h1>
+
+                <p>
+                    Gestão de Visitas
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <hr class="line">
+
+
+        <nav>
+
+            <a href="dashboard.html">
+                🏠
+                <span>Dashboard</span>
+            </a>
+
+            <a href="agendamentos.html">
+                📅
+                <span>Agendamentos</span>
+            </a>
+
+            <a href="token.html">
+                🔐
+                <span>Tokens</span>
+            </a>
+
+            <a href="relatorios.html">
+                🧪
+                <span>Triagem</span>
+            </a>
+
+            <a href="pacientes.html">
+                📊
+                <span>Pacientes</span>
+            </a>
+
+            <a
+                href="vochers.html"
+                class="active"
+            >
+                🎫
+                <span>Vouchers</span>
+            </a>
+
+        </nav>
+
+
+        <div class="configuracoes">
+
+            ⚙
+
+            <span>
+                Configurações
+            </span>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- =====================================================
+         CONTEÚDO
+    ====================================================== -->
+
+    <main class="page-content">
+
+
+        <!-- HEADER -->
+
+        <header>
+
+            <div class="header-title">
+
+                <h1>
+                    Voucher de Acesso
+                </h1>
+
+                <p>
+                    Apresente o QR Code no totem da portaria
+                </p>
+
+            </div>
+
+
+            <div class="header-actions">
+
+                <span class="notification">
+                    🔔
+                </span>
+
+                <div class="perfil-header">
+                    Ad
+                </div>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =================================================
+             CONTEÚDO PRINCIPAL
+        ================================================== -->
+
+        <section class="content">
+
+
+            <!-- =================================================
+                 CARD DO QR CODE
+            ================================================== -->
+
+            <div class="qr-card">
+
+
+                <div class="card-header">
+
+                    <h2>
+                        QR Code de Acesso
+                    </h2>
+
+                    <p>
+                        Código dinâmico — atualizado a cada 8 segundos
+                    </p>
+
+                </div>
+
+
+
+                <!-- QR -->
+
+                <div class="qr-wrapper">
+
+                    <div
+                        id="qrcode"
+                        class="qrcode"
+                    ></div>
+
+                </div>
+
+
+
+                <!-- TEMPO -->
+
+                <div class="timer-box">
+
+                    <div class="timer-left">
+
+                        <div class="clock">
+                            ⏱
+                        </div>
+
+                        <div>
+
+                            <span>
+                                Código válido por
+                            </span>
+
+                            <strong id="timer">
+                                00:18
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="refresh-text">
+
+                        Renovação automática em
+
+                        <strong id="refresh-timer">
+                            8s
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- BARRA -->
+
+                <div class="progress">
+
+                    <div
+                        id="progress-bar"
+                        class="progress-bar"
+                    ></div>
+
+                </div>
+
+
+
+                <!-- STATUS -->
+
+                <div class="tags">
+
+                    <span>
+                        QR dinâmico
+                    </span>
+
+                    <span>
+                        Biometria OK
+                    </span>
+
+                    <span>
+                        LGPD
+                    </span>
+
+                    <span>
+                        Uso único
+                    </span>
+
+                </div>
+
+
+
+                <!-- HASH -->
+
+                <p
+                    class="hash"
+                    id="hash"
+                >
+                    SHA256: aguardando...
+                </p>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 COLUNA DIREITA
+            ================================================== -->
+
+            <div class="right-column">
+
+
+                <!-- PACIENTE -->
+
+                <div class="patient-card">
+
+                    <div
+                        class="patient-avatar"
+                        id="patient-avatar"
+                    >
+                        --
+                    </div>
+
+
+                    <div class="patient-data">
+
+                        <h2 id="patient-name">
+                            Carregando...
+                        </h2>
+
+                        <p id="patient-location">
+                            Buscando informações...
+                        </p>
+
+                        <div class="patient-status">
+
+                            <span></span>
+
+                            Paciente disponível para visita
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- DETALHES -->
+
+                <div class="details-card">
+
+                    <h3>
+                        Detalhes da Visita
+                    </h3>
+
+
+                    <div class="detail">
+
+                        <span>
+                            Data
+                        </span>
+
+                        <strong id="visit-date">
+                            --
+                        </strong>
+
+                    </div>
+
+
+                    <div class="detail">
+
+                        <span>
+                            Horário
+                        </span>
+
+                        <strong id="visit-time">
+                            --
+                        </strong>
+
+                    </div>
+
+
+                    <div class="detail">
+
+                        <span>
+                            Visitante
+                        </span>
+
+                        <strong id="visitor-name">
+                            --
+                        </strong>
+
+                    </div>
+
+
+                    <div class="detail">
+
+                        <span>
+                            Protocolo
+                        </span>
+
+                        <strong id="protocol">
+                            --
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- COMO USAR -->
+
+                <div class="instructions-card">
+
+                    <h3>
+                        Como usar o voucher
+                    </h3>
+
+
+                    <div class="instruction">
+
+                        <b>
+                            1
+                        </b>
+
+                        <p>
+                            Chegue ao hospital no horário agendado.
+                            Máximo de 5 min de tolerância.
+                        </p>
+
+                    </div>
+
+
+                    <div class="instruction">
+
+                        <b>
+                            2
+                        </b>
+
+                        <p>
+                            Aproxime este QR Code do leitor no totem
+                            da portaria.
+                        </p>
+
+                    </div>
+
+
+                    <div class="instruction">
+
+                        <b>
+                            3
+                        </b>
+
+                        <p>
+                            Aguarde a catraca abrir —
+                            acesso liberado instantaneamente.
+                        </p>
+
+                    </div>
+
+
+                    <div class="instruction">
+
+                        <b>
+                            4
+                        </b>
+
+                        <p>
+                            Em caso de lockdown ou bloqueio,
+                            aguarde o aviso antes de entrar.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- BOTÕES -->
+
+                <div class="buttons">
+
+                    <button
+                        type="button"
+                        id="print-button"
+                        class="btn-print"
+                    >
+                        🖨 Imprimir Voucher
+                    </button>
+
+
+                    <button
+                        type="button"
+                        id="share-button"
+                        class="btn-share"
+                    >
+                        ↗ Compartilhar Link
+                    </button>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+</body>
+
+</html>
