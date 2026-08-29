@@ -7,7 +7,7 @@
 // CONFIGURAÇÃO DA API
 // ============================================================
 
-const API_URL = "http://127.0.0.1:5000";
+const API_URL = "http://localhost:8000";
 
 
 // ============================================================
@@ -890,20 +890,17 @@ function renderizarCalendario() {
         const hoje =
             new Date();
 
+        const dataDoBotao = new Date(anoAtual, mesAtual, dia);
+        dataDoBotao.setHours(0, 0, 0, 0);
 
-        if (
-            dia === hoje.getDate() &&
-            mesAtual === hoje.getMonth() &&
-            anoAtual === hoje.getFullYear()
-        ) {
+        const hojeSemHora = new Date();
+        hojeSemHora.setHours(0, 0, 0, 0);
 
-            botao.classList.add(
-                "today"
-            );
-
+        if (dataDoBotao < hojeSemHora) {
+            botao.disabled = true;
+            botao.style.opacity = "0.35";
+            botao.style.cursor = "not-allowed";
         }
-
-
         botao.addEventListener(
             "click",
             function () {
@@ -978,257 +975,102 @@ function selecionarData(
 // CARREGAR HORÁRIOS
 // ============================================================
 
-function carregarHorarios() {
+async function carregarHorarios() {
 
-    const container =
-        document.getElementById(
-            "horarios-disponiveis"
-        );
+    const container = document.getElementById("horarios-disponiveis");
 
-
-    if (!container) {
-
-        return;
-
-    }
-
+    if (!container) return;
 
     container.innerHTML = "";
 
+    if (!dataSelecionada) return;
 
-    if (!dataSelecionada) {
-
+    if (!dadosInternacao || !dadosInternacao.internacao) {
+        container.innerHTML = "<p>Nenhuma internação carregada. Valide o token novamente.</p>";
         return;
-
     }
 
+    container.innerHTML = "<p>Carregando horários...</p>";
 
-    const horarios = [
+    const ano = dataSelecionada.getFullYear();
+    const mes = String(dataSelecionada.getMonth() + 1).padStart(2, "0");
+    const dia = String(dataSelecionada.getDate()).padStart(2, "0");
+    const dataFormatada = `${ano}-${mes}-${dia}`;
 
-        {
-            horario: "09:00 - 09:30",
-            ocupacao: 1
-        },
+    const idInternacao = dadosInternacao.internacao.id;
 
-        {
-            horario: "09:30 - 10:00",
-            ocupacao: 1
-        },
+    let horarios = [];
 
-        {
-            horario: "10:00 - 10:30",
-            ocupacao: 2
-        },
+    try {
+        const resposta = await fetch(
+            `${API_URL}/internacoes/${idInternacao}/horarios?data=${dataFormatada}`
+        );
 
-        {
-            horario: "10:30 - 11:00",
-            ocupacao: 1
-        },
-
-        {
-            horario: "14:00 - 14:30",
-            ocupacao: 3
-        },
-
-        {
-            horario: "14:30 - 15:00",
-            ocupacao: 2
-        },
-
-        {
-            horario: "15:00 - 15:30",
-            ocupacao: 1
-        },
-
-        {
-            horario: "15:30 - 16:00",
-            ocupacao: 0
+        if (!resposta.ok) {
+            const erro = await resposta.json().catch(() => ({}));
+            container.innerHTML = `<p>${erro.erro || "Não foi possível carregar os horários."}</p>`;
+            return;
         }
 
-    ];
-
-
-    horarios.forEach(
-        function (item) {
-
-            const card =
-                document.createElement(
-                    "button"
-                );
-
-
-            card.type = "button";
-
-
-            card.classList.add(
-                "style"
-            );
-
-
-            // =========================================
-            // ÍCONE
-            // =========================================
-
-            const icon =
-                document.createElement(
-                    "div"
-                );
-
-
-            icon.classList.add(
-                "horario-icon"
-            );
-
-
-            icon.textContent = "⏰";
-
-
-            // =========================================
-            // INFORMAÇÕES
-            // =========================================
-
-            const info =
-                document.createElement(
-                    "div"
-                );
-
-
-            info.classList.add(
-                "info-horarios"
-            );
-
-
-            const horario =
-                document.createElement(
-                    "h1"
-                );
-
-
-            horario.textContent =
-                item.horario;
-
-
-            const quantidade =
-                document.createElement(
-                    "p"
-                );
-
-
-            quantidade.textContent =
-                `${item.ocupacao} de 3 visitantes simultâneos`;
-
-
-            info.appendChild(
-                horario
-            );
-
-
-            info.appendChild(
-                quantidade
-            );
-
-
-            // =========================================
-            // STATUS
-            // =========================================
-
-            const status =
-                document.createElement(
-                    "span"
-                );
-
-
-            if (item.ocupacao >= 3) {
-
-                status.classList.add(
-                    "status-hours-lotado"
-                );
-
-
-                status.textContent =
-                    "Lotado";
-
-
-                card.classList.add(
-                    "lotado"
-                );
-
-
-                card.disabled = true;
-
-            }
-
-            else if (item.ocupacao === 2) {
-
-                status.classList.add(
-                    "status-hours-quase"
-                );
-
-
-                status.textContent =
-                    "Quase cheio";
-
-            }
-
-            else {
-
-                status.classList.add(
-                    "status-hours"
-                );
-
-
-                status.textContent =
-                    "Disponível";
-
-            }
-
-
-            // =========================================
-            // MONTA CARD
-            // =========================================
-
-            card.appendChild(
-                icon
-            );
-
-
-            card.appendChild(
-                info
-            );
-
-
-            card.appendChild(
-                status
-            );
-
-
-            // =========================================
-            // CLIQUE
-            // =========================================
-
-            if (!card.disabled) {
-
-                card.addEventListener(
-                    "click",
-                    function () {
-
-                        selecionarHorario(
-                            item.horario,
-                            card
-                        );
-
-                    }
-                );
-
-            }
-
-
-            container.appendChild(
-                card
-            );
-
+        horarios = await resposta.json();
+
+    } catch (erro) {
+        console.error("Erro ao buscar horários:", erro);
+        container.innerHTML = "<p>Não foi possível conectar ao servidor. Verifique se o Flask está rodando.</p>";
+        return;
+    }
+
+    container.innerHTML = "";
+
+    horarios.forEach(function (item) {
+
+        const card = document.createElement("button");
+        card.type = "button";
+        card.classList.add("style");
+
+        const icon = document.createElement("div");
+        icon.classList.add("horario-icon");
+        icon.textContent = "⏰";
+
+        const info = document.createElement("div");
+        info.classList.add("info-horarios");
+
+        const horario = document.createElement("h1");
+        horario.textContent = item.horario;
+
+        const quantidade = document.createElement("p");
+        quantidade.textContent = `${item.ocupacao} de ${item.capacidade} visitantes simultâneos`;
+
+        info.appendChild(horario);
+        info.appendChild(quantidade);
+
+        const status = document.createElement("span");
+
+        if (item.ocupacao >= item.capacidade) {
+            status.classList.add("status-hours-lotado");
+            status.textContent = "Lotado";
+            card.classList.add("lotado");
+            card.disabled = true;
+        } else if (item.ocupacao === item.capacidade - 1) {
+            status.classList.add("status-hours-quase");
+            status.textContent = "Quase cheio";
+        } else {
+            status.classList.add("status-hours");
+            status.textContent = "Disponível";
         }
-    );
+
+        card.appendChild(icon);
+        card.appendChild(info);
+        card.appendChild(status);
+
+        if (!card.disabled) {
+            card.addEventListener("click", function () {
+                selecionarHorario(item.horario, card);
+            });
+        }
+
+        container.appendChild(card);
+    });
 
 }
 
@@ -1309,54 +1151,108 @@ function selecionarPrimeiroDiaDisponivel() {
 // CONFIRMAR AGENDAMENTO
 // ============================================================
 
-function confirmarAgendamento() {
+async function obterIdPadrao(endpoint, nomeEntidade) {
+
+    const resposta = await fetch(`${API_URL}/${endpoint}`);
+
+    if (!resposta.ok) {
+        throw new Error(`Não foi possível consultar ${nomeEntidade}.`);
+    }
+
+    const lista = await resposta.json();
+
+    if (!Array.isArray(lista) || lista.length === 0) {
+        throw new Error(`Nenhum ${nomeEntidade} cadastrado no banco ainda.`);
+    }
+
+    return lista[0].id;
+}
+
+async function confirmarAgendamento() {
 
     if (!dataSelecionada) {
-
-        alert(
-            "Selecione uma data."
-        );
-
+        alert("Selecione uma data.");
         return;
-
     }
-
 
     if (!horarioSelecionado) {
-
-        alert(
-            "Selecione um horário."
-        );
-
+        alert("Selecione um horário.");
         return;
-
     }
 
+    if (!dadosInternacao || !dadosInternacao.internacao) {
+        alert("Nenhuma internação carregada. Valide o token novamente.");
+        return;
+    }
 
-    console.log(
-        "Agendamento:",
-        {
-            data: dataSelecionada,
-            horario: horarioSelecionado
+    const botaoConfirmar = document.getElementById("confirma");
+    const textoOriginal = botaoConfirmar ? botaoConfirmar.textContent : "Confirmar Visita";
+
+    if (botaoConfirmar) {
+        botaoConfirmar.disabled = true;
+        botaoConfirmar.textContent = "Agendando...";
+    }
+
+    try {
+
+        const horaInicio = horarioSelecionado.split(" - ")[0];
+        const [hora, minuto] = horaInicio.split(":").map(Number);
+
+        const ano = dataSelecionada.getFullYear();
+        const mes = String(dataSelecionada.getMonth() + 1).padStart(2, "0");
+        const dia = String(dataSelecionada.getDate()).padStart(2, "0");
+        const horaFormatada = String(hora).padStart(2, "0");
+        const minutoFormatado = String(minuto).padStart(2, "0");
+
+        const dataHoraISO = `${ano}-${mes}-${dia}T${horaFormatada}:${minutoFormatado}:00`;
+
+        const idVisitante = await obterIdPadrao("visitantes", "visitante");
+        const idHospital = await obterIdPadrao("hospitais", "hospital");
+
+        const qrCode = `VH-${Date.now()}-${Math.random().toString(36).slice(2, 8).toUpperCase()}`;
+
+        const resposta = await fetch(`${API_URL}/visitas`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                data_hora: dataHoraISO,
+                status: true,
+                qr_code: qrCode,
+                id_visitante: idVisitante,
+                id_hospital: idHospital,
+                id_internacao: dadosInternacao.internacao.id
+            })
+        });
+
+        const dados = await resposta.json();
+
+        if (!resposta.ok) {
+            alert(dados.erro || "Não foi possível confirmar o agendamento.");
+            return;
         }
-    );
 
+        localStorage.setItem(
+            "visitHospAgendamento",
+            JSON.stringify({
+                data: dataSelecionada,
+                horario: horarioSelecionado,
+                id_visita: dados.id,
+                qr_code: dados.qr_code
+            })
+        );
 
-    // Salva o agendamento escolhido para a tela de voucher (qrcode.html) exibir.
-    // TODO: quando existir o fluxo real, isso deve virar um POST /visitas
-    // e o id retornado deve ser guardado no lugar da data/horário crus.
-    localStorage.setItem(
-        "visitHospAgendamento",
-        JSON.stringify({
-            data: dataSelecionada,
-            horario: horarioSelecionado
-        })
-    );
+        window.location.href = "token.html";
 
+    } catch (erro) {
+        console.error("Erro ao confirmar agendamento:", erro);
+        alert(erro.message || "Não foi possível conectar ao servidor. Verifique se o Flask está rodando.");
 
-    window.location.href =
-        "token.html";
-
+    } finally {
+        if (botaoConfirmar) {
+            botaoConfirmar.disabled = false;
+            botaoConfirmar.textContent = textoOriginal;
+        }
+    }
 }
 
 
@@ -1405,20 +1301,55 @@ function atualizarProgressoPerguntas() {
     progresso.textContent = respondidas.length + " de " + todasPerguntas.length + " perguntas respondidas";
 }
 
-function uploadDocumento(botao) {
+async function enviarDocumento(input) {
 
-    // Simulação local. Quando integrar com o backend, isso vira um
-    // fetch(..., { method: 'POST', body: formData }) enviando o arquivo real.
-    var documento = botao.closest(".documento");
-    var badge = documento.querySelector(".doc-badge");
+    const arquivo = input.files[0];
+    if (!arquivo) return;
 
-    badge.textContent = "Enviado";
-    badge.classList.remove("badge-pendente");
-    badge.classList.add("badge-enviado");
+    const documento = input.closest(".documento");
+    const badge = documento.querySelector(".doc-badge");
+    const botao = documento.querySelector(".btn-upload");
 
-    botao.textContent = "✓ Enviado";
-    botao.classList.add("btn-upload-feito");
+    const textoOriginal = botao.textContent;
     botao.disabled = true;
+    botao.textContent = "Enviando...";
+
+    const formData = new FormData();
+    formData.append("arquivo", arquivo);
+
+    try {
+        const resposta = await fetch(`${API_URL}/uploads`, {
+            method: "POST",
+            body: formData
+        });
+
+        const dados = await resposta.json();
+
+        if (!resposta.ok) {
+            alert(dados.erro || "Não foi possível enviar o documento.");
+            botao.disabled = false;
+            botao.textContent = textoOriginal;
+            return;
+        }
+
+        documento.dataset.arquivo = dados.arquivo;
+
+        badge.textContent = "Enviado";
+        badge.classList.remove("badge-pendente");
+        badge.classList.add("badge-enviado");
+
+        botao.textContent = "✓ Enviado";
+        botao.classList.add("btn-upload-feito");
+        botao.disabled = true;
+
+        atualizarProgressoPerguntas();
+
+    } catch (erro) {
+        console.error("Erro ao enviar documento:", erro);
+        alert("Não foi possível conectar ao servidor. Verifique se o Flask está rodando.");
+        botao.disabled = false;
+        botao.textContent = textoOriginal;
+    }
 }
 
 function alternarDeclaracao() {
@@ -1441,12 +1372,6 @@ function enviarTriagem() {
     var declaracaoAceita = document.getElementById("declCheckbox").classList.contains("marcado");
     if (!declaracaoAceita) {
         alert("Você precisa concordar com a Declaração de Saúde para continuar.");
-        return;
-    }
-
-    var pendentes = document.querySelectorAll(".badge-pendente").length;
-    if (pendentes > 0) {
-        alert("Ainda falta enviar " + pendentes + " documento(s) obrigatório(s).");
         return;
     }
 

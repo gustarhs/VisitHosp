@@ -187,3 +187,18 @@ class VisitaController:
         resultado = VisitaService.validar_entrada(dados['codigo_qrcode'])
         status_http = 200 if resultado.get('liberado') else 403
         return jsonify(resultado), status_http
+
+    @classmethod
+    @tratar_erros
+    def horarios_disponiveis(cls, id):
+        """GET /internacoes/<id>/horarios?data=YYYY-MM-DD"""
+        data_str = request.args.get('data')
+        if not data_str:
+            return jsonify({"erro": "Parâmetro 'data' é obrigatório (YYYY-MM-DD)"}), 400
+
+        try:
+            horarios = VisitaService.horarios_disponiveis(id, data_str)
+        except ValueError as e:
+            return jsonify({"erro": str(e)}), 400
+
+        return jsonify(horarios), 200

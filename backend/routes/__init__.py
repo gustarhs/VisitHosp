@@ -5,6 +5,7 @@ from .leito_routes import leito_bp
 from .triagem_routes import triagem_bp
 from .visitante_routes import visitante_bp
 from .visita_routes import visita_bp
+from .upload_routes import upload_bp
 
 __all__ = [
     "hospital_bp",
@@ -14,4 +15,5 @@ __all__ = [
     "triagem_bp",
     "visitante_bp",
     "visita_bp",
+    "upload_bp",
 ]

@@ -18,7 +18,7 @@
 //     POST /totem/validar-entrada { codigo_qrcode }.
 
 
-const TEMPO_VALIDADE_SEGUNDOS = 18;
+const TEMPO_VALIDADE_SEGUNDOS = 15 * 60;
 const INTERVALO_RENOVACAO_SEGUNDOS = 8;
 
 let segundosRestantes = TEMPO_VALIDADE_SEGUNDOS;

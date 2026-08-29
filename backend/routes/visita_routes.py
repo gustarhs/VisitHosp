@@ -14,3 +14,4 @@ visita_bp.add_url_rule("/relatorios/visitas", view_func=VisitaController.relator
 visita_bp.add_url_rule("/leitos/<int:id>/proxima-vaga", view_func=VisitaController.proxima_vaga, methods=["GET"])
 visita_bp.add_url_rule("/visitas/<int:id>/pode-gerar-qrcode", view_func=VisitaController.pode_gerar_qrcode, methods=["GET"])
 visita_bp.add_url_rule("/totem/validar-entrada", view_func=VisitaController.validar_entrada_totem, methods=["POST"])
+visita_bp.add_url_rule("/internacoes/<int:id>/horarios", view_func=VisitaController.horarios_disponiveis, methods=["GET"])
