@@ -53,4 +53,4 @@ Conheça a equipe responsável pelo desenvolvimento deste projeto:
 7. **Cadastro e controle de visitas** — registro das informações relacionadas às visitas aos pacientes.
 8. **Geração de QR Code** — geração de um QR Code vinculado à visita para identificação do acesso.
 9. **Controle das regras de visita** — verificação das condições que permitem ou impedem a realização de uma visita.
-10. **Controle do horário de visita** — registro e validação dos horários definidos para as visitas.
+10. **Compartilhamento e impressão do QR Code** — disponibilização do QR Code gerado para compartilhamento e impressão.
