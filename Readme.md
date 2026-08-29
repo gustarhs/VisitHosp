@@ -41,3 +41,16 @@ Conheça a equipe responsável pelo desenvolvimento deste projeto:
 ---
 
 ## 🚀 Como Executar o Projeto (Em produçao)
+
+## Funcionalidades Implementadas
+
+1. **Cadastro de pacientes** — registro e gerenciamento dos dados dos pacientes internados.
+2. **Triagem de visitantes** — realização da triagem para avaliar as condições de visita.
+3. **Controle de ocupação** — análise da ocupação dos leitos.
+4. **Análise de disponibilidade por horário** — identificação dos horários disponíveis para realização das visitas.
+5. **Cadastro de internações** — registro das internações dos pacientes no hospital.
+6. **Controle de leitos** — cadastro e acompanhamento dos leitos disponíveis e ocupados.
+7. **Cadastro e controle de visitas** — registro das informações relacionadas às visitas aos pacientes.
+8. **Geração de QR Code** — geração de um QR Code vinculado à visita para identificação do acesso.
+9. **Controle das regras de visita** — verificação das condições que permitem ou impedem a realização de uma visita.
+10. **Controle do horário de visita** — registro e validação dos horários definidos para as visitas.
