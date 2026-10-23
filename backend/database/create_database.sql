@@ -15,7 +15,8 @@ CREATE TABLE visitante (
     nome                VARCHAR(150) NOT NULL,
     data_nascimento     DATETIME     NOT NULL,
     termo_consentimento BOOL         NOT NULL,
-    cpf                 VARCHAR(20)  UNIQUE NOT NULL
+    cpf                 VARCHAR(20)  UNIQUE NOT NULL,
+    ativo               BOOL         NOT NULL DEFAULT TRUE
 );
 
 CREATE TABLE hospital (
