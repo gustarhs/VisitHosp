@@ -76,6 +76,15 @@ class VisitanteController:
 
     @classmethod
     @tratar_erros
+    def revogar(cls, id):
+        visitante = Visitante.buscar_por_id(id)
+        if not visitante:
+            return jsonify({"erro": "Visitante não encontrado"}), 404
+        visitante.revogar()
+        return jsonify(visitante.to_dict()), 200
+
+    @classmethod
+    @tratar_erros
     def excluir(cls, id):
         visitante = Visitante.buscar_por_id(id)
         if not visitante:
