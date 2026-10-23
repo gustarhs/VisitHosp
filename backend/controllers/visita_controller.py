@@ -32,8 +32,11 @@ class VisitaController:
         if data_hora is None:
             return jsonify({"erro": "data_hora inv�lida. Use formato ISO 8601"}), 400
 
-        if not Visitante.buscar_por_id(dados['id_visitante']):
+        visitante = Visitante.buscar_por_id(dados['id_visitante'])
+        if not visitante:
             return jsonify({"erro": "Visitante n�o encontrado"}), 404
+        if not visitante.ativo:
+            return jsonify({"erro": "Acesso do visitante revogado"}), 403
         if not Hospital.buscar_por_id(dados['id_hospital']):
             return jsonify({"erro": "Hospital n�o encontrado"}), 404
         if not Internacao.buscar_por_id(dados['id_internacao']):
