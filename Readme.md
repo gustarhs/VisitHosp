@@ -37,23 +37,35 @@ O **VisitHosp** é um sistema inteligente de gestão de fluxos para hospitais e 
 
 ## ✨ Funcionalidades
 
-### Pacientes e internações
-- **Cadastro de pacientes** — registro e gerenciamento dos dados dos pacientes internados.
-- **Cadastro de internações** — registro das internações dos pacientes no hospital.
+### 🛏️ Pacientes, internações e leitos
+1. **Cadastro de pacientes** — registro e gerenciamento dos dados dos pacientes internados.
+2. **Cadastro de internações** — registro das internações dos pacientes no hospital.
+3. **Controle de leitos** — cadastro e acompanhamento dos leitos disponíveis e ocupados.
+4. **Controle de ocupação** — análise da ocupação dos leitos.
+5. **Atualização do status clínico em tempo real** — a equipe de enfermagem informa quando o paciente está em exame, banho ou procedimento, bloqueando visitas nesses momentos.
 
-### Leitos e ocupação
-- **Controle de leitos** — cadastro e acompanhamento dos leitos disponíveis e ocupados.
-- **Controle de ocupação** — análise da ocupação dos leitos.
+### 📅 Visitas
+6. **Triagem de visitantes** — avaliação das condições do visitante antes da visita.
+7. **Cadastro e controle de visitas** — registro das informações relacionadas às visitas aos pacientes.
+8. **Análise de disponibilidade por horário** — identificação dos horários disponíveis para visitas.
+9. **Controle das regras de visita** — verificação das condições que permitem ou impedem uma visita.
+10. **Histórico de visitas** — consulta das visitas realizadas por paciente e por visitante.
+11. **Notificações ao visitante** — aviso automático sobre confirmação, cancelamento ou mudança de horário da visita.
 
-### Visitas
-- **Triagem de visitantes** — avaliação das condições do visitante antes da visita.
-- **Cadastro e controle de visitas** — registro das informações relacionadas às visitas aos pacientes.
-- **Análise de disponibilidade por horário** — identificação dos horários disponíveis para visitas.
-- **Controle das regras de visita** — verificação das condições que permitem ou impedem uma visita.
+### 🔳 Acesso e QR Code
+12. **Geração de QR Code** — QR Code vinculado à visita para identificação do acesso.
+13. **Compartilhamento e impressão do QR Code** — o QR Code gerado pode ser compartilhado ou impresso.
+14. **Validação do QR Code na entrada** — leitura do código na recepção para liberar ou negar o acesso.
+15. **Rota até o hospital** — integração com a Google Maps API para orientar o visitante até a unidade.
 
-### Acesso
-- **Geração de QR Code** — QR Code vinculado à visita para identificação do acesso.
-- **Compartilhamento e impressão do QR Code** — o QR Code gerado pode ser compartilhado ou impresso.
+### 🔐 Segurança e conformidade (LGPD)
+16. **Login com perfis de acesso** — permissões distintas para administrador, recepção, enfermagem e visitante.
+17. **Criptografia de dados sensíveis** — proteção das informações pessoais e clínicas armazenadas.
+18. **Registro de auditoria** — log de quem acessou ou alterou dados, apoiando a conformidade com a LGPD.
+
+### 📊 Gestão e automação
+19. **Painel de indicadores** — dashboard com taxa de ocupação, volume de visitas e horários de pico.
+20. **Automações com N8N** — fluxos automáticos para envio de notificações e integração entre os módulos do sistema.
 
 ---
 
