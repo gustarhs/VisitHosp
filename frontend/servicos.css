@@ -1,0 +1,125 @@
+/* ============================================================
+   VISITHOSP - Estilos das telas "Serviços" e "Painel"
+   Usado junto com inicial.css (menu lateral, cabeçalho, fonte).
+   Mesma paleta do restante do projeto.
+   ============================================================ */
+
+.page-content{ flex: 1; min-width: 0; }
+.page-content header{ width: 100%; }
+
+.sv-main{
+    padding: 20px 30px 40px 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: 90vh;
+    overflow-y: auto;
+}
+
+.sv-main .info{ width: 100%; margin: 0; height: auto; min-height: 10vh; padding: 10px 0; }
+.status-content.restrito span:last-child{ background-color: #FCEBEB; color: #e24b4a; }
+.status-content.restrito .circle{ background-color: #e24b4a; }
+
+/* ---------- Abas ---------- */
+.sv-tabs{
+    display: flex; flex-wrap: wrap; gap: 8px;
+    background-color: #FFFFFF; border: 1px solid #E0E5F2; border-radius: 14px; padding: 8px;
+}
+.sv-tab{
+    background-color: #F5F7FC; border: none; border-radius: 10px; padding: 10px 16px;
+    font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600; color: #616B85; cursor: pointer;
+}
+.sv-tab:hover{ background-color: #E5F2FF; }
+.sv-tab.ativa{ background-color: #0B639C; color: #FFFFFF; }
+
+.sv-panel{
+    display: none; background-color: #FFFFFF; border-radius: 20px; padding: 24px;
+    box-shadow: 0px 4px 20px rgba(26, 51, 102, 0.08);
+}
+.sv-panel.ativa{ display: block; }
+.sv-panel h2{ font-size: 16px; font-weight: 600; color: #1A1F2E; margin-bottom: 4px; }
+.sv-panel .sv-sub{ font-size: 12px; color: #6B7280; margin-bottom: 20px; }
+.sv-panel h3{ font-size: 14px; font-weight: 600; color: #1A1F2E; margin: 20px 0 10px 0; }
+
+/* ---------- Cards e listas ---------- */
+.sv-grid{ display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
+.sv-card{ background-color: #F5F7FC; border-radius: 14px; padding: 16px; }
+.sv-card-titulo{ font-size: 12px; color: #6B7280; margin-bottom: 6px; }
+.sv-card-valor{ font-size: 15px; font-weight: 600; color: #1A1F2E; }
+.sv-card-texto{ font-size: 12px; color: #616B85; margin-top: 6px; line-height: 1.5; }
+.sv-numero{ font-size: 28px; font-weight: 700; color: #0B639C; }
+
+.sv-lista{ display: flex; flex-direction: column; gap: 10px; }
+.sv-regra{ background-color: #F5F7FC; border-radius: 12px; padding: 12px 16px; }
+.sv-regra strong{ display: block; font-size: 13px; color: #1A1F2E; margin-bottom: 4px; }
+.sv-regra span{ font-size: 12px; color: #616B85; line-height: 1.5; }
+
+.sv-chips{ display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.sv-chip{ background-color: #E5F2FF; color: #0B639C; font-size: 12px; font-weight: 600; padding: 6px 12px; border-radius: 20px; }
+
+.sv-passos{ margin: 10px 0 0 20px; display: flex; flex-direction: column; gap: 10px; font-size: 13px; color: #1A1F2E; line-height: 1.5; }
+
+/* ---------- Badges ---------- */
+.sv-badge{ display: inline-block; font-size: 11px; font-weight: bold; padding: 4px 12px; border-radius: 20px; white-space: nowrap; }
+.sv-badge.ok{ background-color: #E0F5EA; color: #116E50; }
+.sv-badge.warn{ background-color: #FAEEDA; color: #854F0B; }
+.sv-badge.danger{ background-color: #FCEBEB; color: #e24b4a; }
+.sv-badge.info{ background-color: #E5F2FF; color: #0B639C; }
+.sv-badge.neutro{ background-color: #E0E5F2; color: #616B85; }
+
+/* ---------- Formulários ---------- */
+.sv-filtros{ display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end; margin-bottom: 20px; }
+.sv-campo{ display: flex; flex-direction: column; gap: 6px; min-width: 180px; }
+.sv-campo label{ font-size: 12px; font-weight: 600; color: #616B85; }
+.sv-campo input, .sv-campo select{
+    background-color: #F5F7FC; border: 1.5px solid transparent; border-radius: 10px; height: 42px;
+    padding: 0 12px; font-family: 'Inter', sans-serif; font-size: 13px; color: #1A1F2E;
+}
+.sv-campo input:focus, .sv-campo select:focus{ outline: none; border-color: #0B639C; background-color: #FFFFFF; }
+.sv-campo input[readonly]{ color: #6B7280; cursor: not-allowed; }
+.sv-form{ display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; max-width: 900px; }
+.sv-check{ display: flex; gap: 10px; align-items: flex-start; font-size: 12px; color: #616B85; line-height: 1.5; grid-column: 1 / -1; }
+.sv-check input{ margin-top: 3px; }
+
+/* ---------- Botões ---------- */
+.sv-btn{
+    background-color: #0B639C; color: #FFFFFF; border: none; border-radius: 10px; height: 42px; padding: 0 20px;
+    font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500; cursor: pointer; text-decoration: none;
+    display: inline-flex; align-items: center; justify-content: center;
+}
+.sv-btn:disabled{ opacity: 0.5; cursor: not-allowed; }
+.sv-btn.secundario{ background-color: #E5F2FF; color: #0B639C; }
+.sv-btn.perigo{ background-color: #FCEBEB; color: #e24b4a; }
+.sv-btn.pequeno{ height: 32px; padding: 0 12px; font-size: 12px; }
+.sv-acoes{ display: flex; gap: 6px; flex-wrap: wrap; }
+
+/* ---------- Tabelas ---------- */
+.sv-tabela-wrap{ overflow-x: auto; border: 1px solid #E0E5F2; border-radius: 12px; }
+.sv-tabela{ width: 100%; border-collapse: collapse; font-size: 12px; }
+.sv-tabela th{ background-color: #F5F7FC; color: #616B85; text-align: left; font-weight: 600; padding: 12px; white-space: nowrap; }
+.sv-tabela td{ padding: 12px; border-top: 1px solid #E0E5F2; color: #1A1F2E; vertical-align: middle; }
+.sv-tabela td small{ display: block; color: #6B7280; margin-top: 2px; }
+.sv-vazio{ text-align: center; color: #6B7280; font-size: 13px; padding: 30px 10px; }
+
+/* ---------- Mensagens ---------- */
+.sv-msg{ border-radius: 10px; padding: 12px 16px; font-size: 13px; margin-bottom: 16px; }
+.sv-msg.ok{ background-color: #E0F5EA; color: #116E50; }
+.sv-msg.erro{ background-color: #FCEBEB; color: #e24b4a; }
+.sv-msg.info{ background-color: #E5F2FF; color: #0B639C; }
+.sv-aviso{ text-align: center; padding: 30px 10px; color: #616B85; font-size: 13px; display: flex; flex-direction: column; gap: 14px; align-items: center; }
+
+/* ---------- Horários ocupados ---------- */
+.sv-slot{ display: flex; align-items: center; gap: 14px; background-color: #F5F7FC; border-radius: 14px; padding: 12px 16px; }
+.sv-slot-hora{ width: 120px; font-size: 13px; font-weight: 600; color: #1A1F2E; }
+.sv-slot .occupancy-bar{ flex: 1; margin-top: 0; background-color: #FFFFFF; }
+.sv-slot .occupancy-fill.lotado{ background-color: #e24b4a; }
+.sv-slot .occupancy-fill.parcial{ background-color: #D98A1E; }
+.sv-slot .occupancy-fill.livre{ background-color: #116E50; }
+.sv-slot-qtd{ width: 70px; text-align: right; font-size: 12px; color: #616B85; }
+
+/* ---------- Barras por turno ---------- */
+.sv-barra{ height: 10px; background-color: #E0E5F2; border-radius: 5px; margin-top: 12px; }
+.sv-barra > div{ height: 100%; background-color: #0B639C; border-radius: 5px; }
+
+.sv-editor{ background-color: #F5F7FC; border-radius: 14px; padding: 18px; margin-top: 20px; }
+.sv-editor h3{ margin-top: 0; }

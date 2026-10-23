@@ -1,6 +1,7 @@
 from flask import request, jsonify
 from models import Visita, Visitante, Hospital, Internacao, Triagem
 from services import VisitaService
+from services.vinculo.vinculo_service import VinculoService
 from .helpers import parse_datetime, campos_faltando, tratar_erros
 
 class VisitaController:
@@ -43,6 +44,9 @@ class VisitaController:
 
         if Visita.query.filter_by(qr_code=dados['qr_code']).first():
             return jsonify({"erro": "J� existe uma visita com esse qr_code"}), 400
+
+        if VinculoService.acesso_revogado(dados['id_visitante'], dados['id_internacao']):
+            return jsonify({"erro": "O acesso deste visitante a este paciente foi revogado."}), 403
 
         nova = Visita(
             data_hora=data_hora,

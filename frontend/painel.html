@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VisitHosp - Painel de Gestão</title>
+    <link rel="stylesheet" href="inicial.css">
+    <link rel="stylesheet" href="servicos.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="config.js" defer></script>
+    <script src="servicos.js" defer></script>
+</head>
+<body data-tela="painel">
+    <div id="page">
+        <div class="menu">
+            <div class="cabecalho-menu">
+                <div class="logo">🏥</div>
+                <div class="texts">
+                    <h1>VisitHosp</h1>
+                    <p>Gestão de Visitas</p>
+                </div>
+            </div>
+            <hr class="line">
+            <ul>
+                <li><a href="index.html">🏠 Home</a></li>
+                <li><a href="inicial.html">📅 Agendamentos</a></li>
+                <li><a href="token.html">🔐 Tokens</a></li>
+                <li><a href="token.html">🧪 Triagens</a></li>
+                <li><a href="qrcode.html">🎫 Vouchers</a></li>
+                <li><a href="servicos.html">📋 Serviços</a></li>
+                <li><a href="painel.html">📊 Painel</a></li>
+            </ul>
+        </div>
+        <div class="page-content">
+            <header>
+                <div class="header-title">
+                    <h1>Painel de Gestão</h1>
+                    <p>Controle de acessos, histórico, auditoria e estatísticas de visitas.</p>
+                </div>
+                <div class="header-actions">
+                    <span>🔔</span>
+                    <a href="" class="perfil-header">GS</a>
+                </div>
+            </header>
+
+            <main class="sv-main">
+                <nav class="sv-tabs">
+                    <button class="sv-tab ativa" data-aba="acessos">🚫 Visitantes e acessos</button>
+                    <button class="sv-tab" data-aba="historico">📚 Histórico de visitas</button>
+                    <button class="sv-tab" data-aba="auditoria">🔎 Auditoria check-in/out</button>
+                    <button class="sv-tab" data-aba="turnos">📊 Visitantes por turno</button>
+                </nav>
+
+                <!-- Requisito 4 -->
+                <section class="sv-panel ativa" id="aba-acessos">
+                    <h2>Visitantes vinculados e revogação de acesso</h2>
+                    <p class="sv-sub">Ao revogar, o visitante perde o acesso ao paciente e as visitas futuras dele são canceladas.</p>
+                    <div class="sv-filtros">
+                        <div class="sv-campo">
+                            <label for="acessos-paciente">Paciente</label>
+                            <select id="acessos-paciente" class="sel-paciente"></select>
+                        </div>
+                    </div>
+                    <div id="acessos-msg"></div>
+                    <div id="acessos-conteudo"></div>
+                </section>
+
+                <!-- Requisito 8 -->
+                <section class="sv-panel" id="aba-historico">
+                    <h2>Relatório de histórico de visitas</h2>
+                    <p class="sv-sub">Todas as visitas do período, com situação, entrada e saída.</p>
+                    <div class="sv-filtros">
+                        <div class="sv-campo">
+                            <label for="hist-paciente">Paciente</label>
+                            <select id="hist-paciente" class="sel-paciente" data-todos="1"></select>
+                        </div>
+                        <div class="sv-campo">
+                            <label for="hist-inicio">De</label>
+                            <input type="date" id="hist-inicio">
+                        </div>
+                        <div class="sv-campo">
+                            <label for="hist-fim">Até</label>
+                            <input type="date" id="hist-fim">
+                        </div>
+                        <button class="sv-btn" id="btn-historico">Gerar relatório</button>
+                        <button class="sv-btn secundario" id="btn-historico-csv">⬇ Exportar CSV</button>
+                    </div>
+                    <div id="historico-conteudo"></div>
+                </section>
+
+                <!-- Requisito 9 -->
+                <section class="sv-panel" id="aba-auditoria">
+                    <h2>Auditoria de check-in e check-out</h2>
+                    <p class="sv-sub">Entradas e saídas registradas, permanência e alertas de inconsistência.</p>
+                    <div class="sv-filtros">
+                        <div class="sv-campo">
+                            <label for="aud-paciente">Paciente</label>
+                            <select id="aud-paciente" class="sel-paciente" data-todos="1"></select>
+                        </div>
+                        <div class="sv-campo">
+                            <label for="aud-inicio">De</label>
+                            <input type="date" id="aud-inicio">
+                        </div>
+                        <div class="sv-campo">
+                            <label for="aud-fim">Até</label>
+                            <input type="date" id="aud-fim">
+                        </div>
+                        <button class="sv-btn" id="btn-auditoria">Filtrar</button>
+                    </div>
+                    <div id="auditoria-msg"></div>
+                    <div id="auditoria-conteudo"></div>
+                </section>
+
+                <!-- Requisito 10 -->
+                <section class="sv-panel" id="aba-turnos">
+                    <h2>Quantidade total de visitantes por turno</h2>
+                    <p class="sv-sub">Visitas ativas agrupadas por turno (canceladas são contadas à parte).</p>
+                    <div class="sv-filtros">
+                        <div class="sv-campo">
+                            <label for="turno-inicio">De</label>
+                            <input type="date" id="turno-inicio">
+                        </div>
+                        <div class="sv-campo">
+                            <label for="turno-fim">Até</label>
+                            <input type="date" id="turno-fim">
+                        </div>
+                        <button class="sv-btn" id="btn-turnos">Atualizar</button>
+                    </div>
+                    <div id="turnos-conteudo"></div>
+                </section>
+            </main>
+        </div>
+    </div>
+</body>
+</html>

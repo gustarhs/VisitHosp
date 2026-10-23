@@ -5,6 +5,8 @@ from .paciente import Paciente
 from .triagem import Triagem
 from .visita import Visita
 from .visitante import Visitante
+from .vinculo import VisitanteVinculo
+from .registro_acesso import RegistroAcesso
 
 __all__ = [
     "Hospital", 
@@ -13,6 +15,8 @@ __all__ = [
     "Paciente", 
     "Triagem", 
     "Visita", 
-    "Visitante"
+    "Visitante",
+    "VisitanteVinculo",
+    "RegistroAcesso"
 ]
 

@@ -258,6 +258,10 @@ class VisitaRepository:
         visita.status = True
         db.session.commit()
 
+        # auditoria: a entrada pelo totem e registrada como check-in (uma unica vez por visita)
+        from services.acesso.acesso_service import AcessoService
+        AcessoService.registrar_checkin_automatico(visita.id, origem="totem")
+
         return {
             "liberado": True,
             "notificacao": {

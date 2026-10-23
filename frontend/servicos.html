@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VisitHosp - Serviços do Visitante</title>
+    <link rel="stylesheet" href="inicial.css">
+    <link rel="stylesheet" href="servicos.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="config.js" defer></script>
+    <script src="servicos.js" defer></script>
+</head>
+<body data-tela="servicos">
+    <div id="page">
+        <div class="menu">
+            <div class="cabecalho-menu">
+                <div class="logo">🏥</div>
+                <div class="texts">
+                    <h1>VisitHosp</h1>
+                    <p>Gestão de Visitas</p>
+                </div>
+            </div>
+            <hr class="line">
+            <ul>
+                <li><a href="index.html">🏠 Home</a></li>
+                <li><a href="inicial.html">📅 Agendamentos</a></li>
+                <li><a href="token.html">🔐 Tokens</a></li>
+                <li><a href="token.html">🧪 Triagens</a></li>
+                <li><a href="qrcode.html">🎫 Vouchers</a></li>
+                <li><a href="servicos.html">📋 Serviços</a></li>
+                <li><a href="painel.html">📊 Painel</a></li>
+            </ul>
+        </div>
+        <div class="page-content">
+            <header>
+                <div class="header-title">
+                    <h1>Serviços do Visitante</h1>
+                    <p>Regulamento, status do paciente, localização, agendamentos e cadastro.</p>
+                </div>
+                <div class="header-actions">
+                    <span>🔔</span>
+                    <a href="" class="perfil-header">GS</a>
+                </div>
+            </header>
+
+            <main class="sv-main">
+                <div class="info">
+                    <div class="perfil" id="patient-avatar">--</div>
+                    <div class="info-titles">
+                        <h1 id="patient-name">Carregando...</h1>
+                        <p id="patient-location">Aguardando dados da internação...</p>
+                    </div>
+                    <div class="status-content" id="patient-status">
+                        <span class="circle"></span>
+                        <span>--</span>
+                    </div>
+                </div>
+
+                <nav class="sv-tabs">
+                    <button class="sv-tab ativa" data-aba="regulamento">📜 Regulamento e horários</button>
+                    <button class="sv-tab" data-aba="status">🩺 Status do paciente</button>
+                    <button class="sv-tab" data-aba="localizacao">🧭 Localização do leito</button>
+                    <button class="sv-tab" data-aba="agendamentos">🗓️ Meus agendamentos</button>
+                    <button class="sv-tab" data-aba="ocupados">⏰ Horários ocupados</button>
+                    <button class="sv-tab" data-aba="cadastro">👤 Cadastrar visitante</button>
+                </nav>
+
+                <!-- Requisito 1 -->
+                <section class="sv-panel ativa" id="aba-regulamento">
+                    <h2>Regulamento e horários oficiais</h2>
+                    <p class="sv-sub">Regras de visitação definidas pelo hospital.</p>
+                    <div id="regulamento-conteudo"><p class="sv-vazio">Carregando...</p></div>
+                </section>
+
+                <!-- Requisito 2 -->
+                <section class="sv-panel" id="aba-status">
+                    <h2>Status do paciente</h2>
+                    <p class="sv-sub">Situação atual do paciente para visitas, informada pela equipe de enfermagem.</p>
+                    <div id="status-conteudo"></div>
+                    <button class="sv-btn secundario" id="btn-atualizar-status" style="margin-top:16px">↻ Atualizar status</button>
+                </section>
+
+                <!-- Requisito 3 -->
+                <section class="sv-panel" id="aba-localizacao">
+                    <h2>Como chegar ao leito</h2>
+                    <p class="sv-sub">Orientações passo a passo da entrada do hospital até o leito.</p>
+                    <div id="localizacao-conteudo"></div>
+                </section>
+
+                <!-- Requisito 5 -->
+                <section class="sv-panel" id="aba-agendamentos">
+                    <h2>Meus agendamentos</h2>
+                    <p class="sv-sub">Altere ou cancele visitas com no mínimo 1 hora de antecedência.</p>
+                    <div id="agendamentos-msg"></div>
+                    <div id="agendamentos-conteudo"></div>
+                    <div id="agendamentos-editor"></div>
+                </section>
+
+                <!-- Requisito 6 -->
+                <section class="sv-panel" id="aba-ocupados">
+                    <h2>Horários ocupados do leito</h2>
+                    <p class="sv-sub">Veja quantos visitantes já estão agendados em cada horário deste leito.</p>
+                    <div class="sv-filtros">
+                        <div class="sv-campo">
+                            <label for="ocupados-data">Data</label>
+                            <input type="date" id="ocupados-data">
+                        </div>
+                    </div>
+                    <div id="ocupados-conteudo"></div>
+                </section>
+
+                <!-- Requisito 7 -->
+                <section class="sv-panel" id="aba-cadastro">
+                    <h2>Cadastrar visitante</h2>
+                    <p class="sv-sub">O visitante fica vinculado a este paciente e a este leito.</p>
+                    <div id="cadastro-msg"></div>
+                    <form id="form-cadastro" class="sv-form" autocomplete="off">
+                        <div class="sv-campo">
+                            <label for="cad-nome">Nome completo</label>
+                            <input type="text" id="cad-nome" required maxlength="100">
+                        </div>
+                        <div class="sv-campo">
+                            <label for="cad-cpf">CPF</label>
+                            <input type="text" id="cad-cpf" required maxlength="14" placeholder="000.000.000-00">
+                        </div>
+                        <div class="sv-campo">
+                            <label for="cad-nascimento">Data de nascimento</label>
+                            <input type="date" id="cad-nascimento" required>
+                        </div>
+                        <div class="sv-campo">
+                            <label for="cad-tipo">Tipo de acesso</label>
+                            <select id="cad-tipo">
+                                <option value="visitante">Visitante</option>
+                                <option value="acompanhante">Acompanhante</option>
+                            </select>
+                        </div>
+                        <div class="sv-campo">
+                            <label for="cad-parentesco">Parentesco</label>
+                            <input type="text" id="cad-parentesco" maxlength="50" placeholder="ex.: Filho, Esposa, Amigo">
+                        </div>
+                        <div class="sv-campo">
+                            <label for="cad-paciente">Paciente</label>
+                            <input type="text" id="cad-paciente" readonly>
+                        </div>
+                        <div class="sv-campo">
+                            <label for="cad-leito">Leito</label>
+                            <input type="text" id="cad-leito" readonly>
+                        </div>
+                        <label class="sv-check">
+                            <input type="checkbox" id="cad-termo">
+                            Li e aceito o termo de consentimento para tratamento dos meus dados pessoais, conforme a LGPD.
+                        </label>
+                        <div>
+                            <button type="submit" class="sv-btn" id="btn-cadastrar">Cadastrar e vincular</button>
+                        </div>
+                    </form>
+                </section>
+            </main>
+        </div>
+    </div>
+</body>
+</html>

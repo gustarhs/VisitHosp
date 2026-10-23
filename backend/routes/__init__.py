@@ -6,6 +6,10 @@ from .triagem_routes import triagem_bp
 from .visitante_routes import visitante_bp
 from .visita_routes import visita_bp
 from .upload_routes import upload_bp
+from .consulta_routes import consulta_bp
+from .agendamento_routes import agendamento_bp
+from .vinculo_routes import vinculo_bp
+from .acesso_routes import acesso_bp
 
 __all__ = [
     "hospital_bp",
@@ -16,4 +20,8 @@ __all__ = [
     "visitante_bp",
     "visita_bp",
     "upload_bp",
+    "consulta_bp",
+    "agendamento_bp",
+    "vinculo_bp",
+    "acesso_bp",
 ]
