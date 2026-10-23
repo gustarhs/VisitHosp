@@ -1,0 +1,720 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Inter", sans-serif;
+}
+
+body {
+    background: #f5f7fc;
+    color: #101628;
+}
+
+button {
+    font-family: inherit;
+}
+
+#page {
+    display: flex;
+    min-height: 100vh;
+}
+
+
+/* ============================================================
+   SIDEBAR
+============================================================ */
+
+.menu {
+    width: 138px;
+    min-height: 100vh;
+    background: #101628;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 10;
+}
+
+.cabecalho-menu {
+    padding: 16px 13px;
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    width: 27px;
+    height: 27px;
+    border-radius: 50%;
+    background: #0b639c;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 12px;
+}
+
+.texts {
+    margin-left: 7px;
+}
+
+.texts h1 {
+    color: white;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.texts p {
+    color: #8994aa;
+    font-size: 6px;
+    margin-top: 2px;
+}
+
+.line {
+    border: none;
+    border-top: 1px solid #1c263d;
+    width: 105px;
+    margin: 0 auto 14px;
+}
+
+
+/* ============================================================
+   MENU
+============================================================ */
+
+.menu nav {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 0 7px;
+}
+
+.menu nav a {
+    height: 35px;
+    border-radius: 8px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 0 9px;
+
+    color: #a6b0c4;
+    text-decoration: none;
+
+    font-size: 8px;
+
+    transition: 0.2s;
+}
+
+.menu nav a:hover {
+    background: #18233a;
+    color: white;
+}
+
+.menu nav a.active {
+    background: #0b70ad;
+    color: white;
+    font-weight: 600;
+}
+
+.menu nav a:first-child {
+    margin-top: 2px;
+}
+
+
+/* ============================================================
+   CONFIGURAÇÕES
+============================================================ */
+
+.configuracoes {
+    position: absolute;
+    bottom: 28px;
+    left: 18px;
+
+    display: flex;
+    align-items: center;
+    gap: 7px;
+
+    color: #8994aa;
+    font-size: 7px;
+}
+
+
+/* ============================================================
+   CONTEÚDO
+============================================================ */
+
+.page-content {
+    margin-left: 138px;
+    width: calc(100% - 138px);
+    min-height: 100vh;
+}
+
+
+/* ============================================================
+   HEADER
+============================================================ */
+
+header {
+    height: 50px;
+    background: white;
+
+    border-bottom: 1px solid #e3e7ef;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 18px;
+}
+
+.header-title h1 {
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.header-title p {
+    margin-top: 2px;
+    color: #718096;
+    font-size: 8px;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+}
+
+.notification {
+    font-size: 11px;
+}
+
+.perfil-header {
+    width: 25px;
+    height: 25px;
+
+    border-radius: 50%;
+
+    background: #e5f2ff;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #0b639c;
+
+    font-size: 7px;
+    font-weight: 700;
+}
+
+
+/* ============================================================
+   CONTENT
+============================================================ */
+
+.content {
+    padding: 18px;
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(340px, 1.1fr)
+        minmax(320px, 0.9fr);
+
+    gap: 12px;
+
+    max-width: 760px;
+}
+
+
+/* ============================================================
+   QR CARD
+============================================================ */
+
+.qr-card {
+    background: white;
+
+    border-radius: 12px;
+
+    padding: 14px;
+
+    border: 1px solid #e5e9f1;
+
+    box-shadow:
+        0 5px 18px rgba(16, 22, 40, 0.035);
+}
+
+.card-header h2 {
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.card-header p {
+    font-size: 7px;
+    color: #718096;
+    margin-top: 3px;
+}
+
+
+/* ============================================================
+   QR CODE
+============================================================ */
+
+.qr-wrapper {
+    width: 250px;
+    height: 250px;
+
+    margin: 9px auto;
+
+    border-radius: 11px;
+
+    background: #f3f6fc;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.qrcode {
+    width: 190px;
+    height: 190px;
+
+    background: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.qrcode canvas,
+.qrcode img {
+    width: 190px !important;
+    height: 190px !important;
+}
+
+
+/* ============================================================
+   TIMER
+============================================================ */
+
+.timer-box {
+    height: 33px;
+
+    background: #e4f2ff;
+
+    border-radius: 7px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 0 9px;
+}
+
+.timer-left {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.clock {
+    font-size: 11px;
+}
+
+.timer-left span {
+    display: block;
+
+    font-size: 6px;
+
+    color: #718096;
+}
+
+.timer-left strong {
+    display: block;
+
+    font-size: 13px;
+
+    color: #0069a6;
+
+    line-height: 12px;
+}
+
+.refresh-text {
+    font-size: 6px;
+    color: #718096;
+}
+
+.refresh-text strong {
+    color: #4d6680;
+}
+
+
+/* ============================================================
+   PROGRESS
+============================================================ */
+
+.progress {
+    width: 100%;
+    height: 4px;
+
+    background: #dce4f0;
+
+    border-radius: 10px;
+
+    margin-top: 7px;
+
+    overflow: hidden;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 100%;
+
+    background: #076aa4;
+
+    border-radius: 10px;
+
+    transition: width 1s linear;
+}
+
+
+/* ============================================================
+   TAGS
+============================================================ */
+
+.tags {
+    display: flex;
+    gap: 5px;
+
+    margin-top: 8px;
+}
+
+.tags span {
+    padding: 4px 8px;
+
+    background: #e3f1ff;
+
+    border-radius: 20px;
+
+    color: #17699a;
+
+    font-size: 5px;
+    font-weight: 600;
+}
+
+.hash {
+    margin-top: 8px;
+
+    color: #a0a8b7;
+
+    font-size: 5px;
+}
+
+
+/* ============================================================
+   RIGHT COLUMN
+============================================================ */
+
+.right-column {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+
+/* ============================================================
+   PATIENT
+============================================================ */
+
+.patient-card {
+    background: white;
+
+    border-radius: 11px;
+
+    padding: 12px;
+
+    display: flex;
+
+    align-items: center;
+
+    border: 1px solid #e5e9f1;
+}
+
+.patient-avatar {
+    width: 35px;
+    height: 35px;
+
+    border-radius: 50%;
+
+    background: #e4f2ff;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #0b639c;
+
+    font-size: 9px;
+    font-weight: 700;
+}
+
+.patient-data {
+    margin-left: 9px;
+}
+
+.patient-data h2 {
+    font-size: 9px;
+}
+
+.patient-data p {
+    font-size: 6px;
+    color: #718096;
+    margin-top: 3px;
+}
+
+.patient-status {
+    margin-top: 5px;
+
+    color: #157352;
+
+    font-size: 5px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 4px;
+}
+
+.patient-status span {
+    width: 5px;
+    height: 5px;
+
+    background: #20a16d;
+
+    border-radius: 50%;
+}
+
+
+/* ============================================================
+   DETAILS
+============================================================ */
+
+.details-card {
+    background: white;
+
+    border-radius: 11px;
+
+    padding: 12px;
+
+    border: 1px solid #e5e9f1;
+}
+
+.details-card h3,
+.instructions-card h3 {
+    font-size: 8px;
+    margin-bottom: 10px;
+}
+
+.detail {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    margin-bottom: 8px;
+}
+
+.detail:last-child {
+    margin-bottom: 0;
+}
+
+.detail span {
+    color: #718096;
+    font-size: 6px;
+}
+
+.detail strong {
+    font-size: 6px;
+}
+
+
+/* ============================================================
+   INSTRUÇÕES
+============================================================ */
+
+.instructions-card {
+    background: white;
+
+    border-radius: 11px;
+
+    padding: 12px;
+
+    border: 1px solid #e5e9f1;
+}
+
+.instruction {
+    min-height: 27px;
+
+    background: #f3f6fc;
+
+    border-radius: 6px;
+
+    margin-bottom: 4px;
+
+    display: flex;
+
+    align-items: center;
+
+    padding: 4px 6px;
+
+    gap: 7px;
+}
+
+.instruction:last-child {
+    margin-bottom: 0;
+}
+
+.instruction b {
+    width: 15px;
+    height: 15px;
+
+    border-radius: 50%;
+
+    background: #096da7;
+
+    color: white;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 6px;
+
+    flex-shrink: 0;
+}
+
+.instruction p {
+    font-size: 5px;
+
+    color: #718096;
+
+    line-height: 1.4;
+}
+
+
+/* ============================================================
+   BUTTONS
+============================================================ */
+
+.buttons {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 8px;
+}
+
+.buttons button {
+    height: 32px;
+
+    border-radius: 8px;
+
+    font-size: 7px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.btn-print {
+    background: white;
+
+    border: 1px solid #0b70ad;
+
+    color: #0b639c;
+}
+
+.btn-print:hover {
+    background: #f1f8fd;
+}
+
+.btn-share {
+    background: #0b70ad;
+
+    border: 1px solid #0b70ad;
+
+    color: white;
+}
+
+.btn-share:hover {
+    background: #095d91;
+}
+
+
+/* ============================================================
+   LOADING / ERROR
+============================================================ */
+
+.loading {
+    opacity: 0.6;
+}
+
+.error {
+    color: #d94848 !important;
+}
+
+
+/* ============================================================
+   IMPRESSÃO
+============================================================ */
+
+@media print {
+
+    .menu,
+    header,
+    .buttons {
+        display: none;
+    }
+
+    .page-content {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    body {
+        background: white;
+    }
+
+    .content {
+        max-width: 100%;
+    }
+}
+
+
+/* ============================================================
+   RESPONSIVO
+============================================================ */
+
+@media (max-width: 700px) {
+
+    .menu {
+        display: none;
+    }
+
+    .page-content {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .content {
+        grid-template-columns: 1fr;
+        max-width: none;
+    }
+
+}

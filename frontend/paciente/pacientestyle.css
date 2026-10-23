@@ -1,0 +1,100 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body{
+    background-color: #F5F5F5;
+}
+
+.menu{
+    background-color: #101628;
+    width: 300px;
+    height: 100vh;
+}
+
+#page{
+    display: flex;
+}
+
+.logo{
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+    background-color: #0B639C;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+}
+
+.cabecalho-menu{
+    display: flex;
+    padding: 20px;
+}
+
+.texts{
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+    margin-top: 5px;
+}
+
+.line {
+    border: none;
+    border-top: 1px solid #1A243D;
+    width: 180px;
+    margin-left: 20px;
+}
+
+.menu h1{
+    color: #FFFFFF;
+    font-size: 16px;
+}
+
+.menu p{
+    font-size: 10px;
+    color: #A6B0C4;
+}
+ul{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    margin-left: 35px;
+    list-style: none;
+}
+
+ul>li>a{
+    text-decoration: none;
+    color: #A6B0C4;
+    font-size: 12px;
+}
+
+
+#right {width: 100%;
+display: flex;
+align-items: center;
+flex-direction: column;}
+
+
+.status-leito{
+    background-color: purple;
+    width: 80%;
+    height: 200px;
+}
+
+.cards-apt{
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.card{
+    background-color: #0B639C;
+    width: 200px;
+    height: 100px;
+}
+

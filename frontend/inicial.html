@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Entrada</title>
+    <link rel="stylesheet" href="inicial.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="script.js" defer></script>
+</head>
+<body>
+    <div id="page">
+        <div class="menu">
+            <div class="cabecalho-menu">
+                <div class="logo">🏥</div>
+                <div class="texts">
+                    <h1>VisitHosp</h1>
+                    <p>Gestão de Visitas</p>
+                </div>
+            </div>
+            <hr class="line">
+            <ul>
+                <li><a href="index.html">🏠 Home</a></li>
+                <li><a href="inicial.html">📅 Agendamentos</a></li>
+                <li><a href="token.html">🔐 Tokens</a></li>
+                <li><a href="token.html">🧪 Triagens</a></li>
+                <li><a href="qrcode.html">🎫 Vouchers</a></li>
+                <li><a href="servicos.html">📋 Serviços</a></li>
+                <li><a href="painel.html">📊 Painel</a></li>
+            </ul>
+        </div>
+        <div class="page-content">
+            <header>
+                <div class="header-title">
+                    <h1>Agendamento de Visita</h1>
+                    <p>Selecione a data e hora para agendar sua visita.</p>
+                </div>
+                <div class="header-actions">
+                    <span>🔔</span>
+                    <a href="" class="perfil-header">GS</a>
+                </div>
+            </header>
+            <div class="info">
+                <div class="perfil" id="patient-avatar">--</div>
+                <div class="info-titles">
+                    <h1 id="patient-name">Carregando...</h1>
+                    <p id="patient-location">Aguardando dados da internação...</p>
+                </div>
+                <div class="status-content" id="patient-status">
+                    <span class="circle"></span>
+                    <span>--</span>
+                </div>
+            </div>
+            <div class="agendamentos">
+                <div class="callendar">
+                    <h1>Calendário de Disponibilidade</h1>
+                    <div class="month-nav">
+                        <button class="nav-arrow" id="prev-month" aria-label="Mês anterior">◀</button>
+                        <span id="current-month">Carregando...</span>
+                        <button class="nav-arrow" id="next-month" aria-label="Próximo mês">▶</button>
+                    </div>
+                    <div class="weekdays">
+                        <span>Dom</span><span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span>Sáb</span>
+                    </div>
+                    <div id="calendar-grid"></div>
+                    <p class="occupancy-label">Ocupação atual do quarto <span id="room-number">--</span>:</p>
+                    <div class="occupancy-bar"><div class="occupancy-fill"></div></div>
+                </div>
+                <div class="hours">
+                    <h1>Horários Disponíveis</h1>
+                    <p>Selecione um horário para confirmar sua visita</p>
+                    <div class="horarios-disponiveis" id="horarios-disponiveis"></div>
+                    <button id="confirma" onclick="confirmarAgendamento()" class="btn-confirmar" disabled>Confirmar Visita</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
