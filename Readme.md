@@ -112,7 +112,7 @@ VisitHosp/
 | `Visitante` | Pessoa que visita; guarda o aceite do termo LGPD | 1:N com `Visita` e com `VisitanteVinculo` |
 | `Visita` | Agendamento com data, status e QR Code | Liga `Visitante`, `Internacao`, `Hospital` e `Triagem` |
 | `Hospital` | Dados e horário de visita do hospital | 1:N com `Visita` |
-| `Triagem` | Perguntas, respostas e resultado | 1:1 com `Visita` |
+| `Triagem` | Perguntas, respostas e resultado | 0..1 com `Visita` |
 | `VisitanteVinculo` | Autorização do visitante para um paciente e leito; guarda a revogação | N:1 com `Visitante`, `Paciente` e `Leito` |
 | `RegistroAcesso` | Check-in e check-out de cada visita | N:1 com `Visita` |
 
@@ -210,12 +210,36 @@ O comando apaga todos os dados e pede confirmação (digite `SIM`).
 
 ---
 
-## LGPD e Segurança
+## LGPD, Termo de Uso e Consentimento
+
+O VisitHosp tem um Termo de Uso e Consentimento baseado na Lei nº 13.709/2018 (LGPD), elaborado por Fernanda Pena Barbosa.
+
+[Leia o Termo de Uso e Consentimento completo (PDF)](Termo_de_Uso_VisitHosp.pdf)
+
+### O que o termo estabelece
+
+| Tema | Resumo |
+| :--- | :--- |
+| Finalidade | Uso exclusivo para a gestão hospitalar e o controle seguro de visitas: cadastro, agendamento, triagem, QR Code, entrada e saída, leitos e relatórios. |
+| Dados coletados | Do visitante: nome, documento, contato, agendamento, entrada e saída e paciente visitado. Do paciente: nome ou identificador, setor, quarto ou leito e restrições de visita. Do uso do sistema: data e hora de acesso e registro das operações. |
+| Dados sensíveis | Dados de saúde são tratados no mínimo necessário e com controle de acesso (art. 11); o visitante só vê o indispensável para a visita. |
+| Consentimento | Pedido de forma livre, informada e destacada. O titular pode recusar, mas perde as funções que dependem dele. |
+| Vedações | É proibido acessar dados sem autorização, compartilhar dados, usar o QR Code de outra pessoa, burlar a validação ou inserir informações falsas. |
+| Segurança | Controle de acesso, registro de atividades, QR Code dinâmico e resposta a incidentes conforme as orientações da ANPD. |
+| Compartilhamento | Só com autorização do titular, por obrigação legal, por ordem de autoridade ou para suporte técnico. |
+| Direitos do titular | Acesso, correção, anonimização, eliminação, portabilidade e revogação do consentimento (art. 18). |
+| Retenção | Os dados ficam guardados só pelo tempo da finalidade; depois são eliminados ou anonimizados (art. 16). |
+| Crianças e adolescentes | Tratamento no melhor interesse do menor, com consentimento de um dos pais ou do responsável (art. 14). |
+| Foro | Comarca de Belo Horizonte/MG. |
+
+### Como o sistema aplica o termo
 
 * Nenhum dado do paciente é exibido sem o token de acesso da internação.
-* O cadastro de visitante exige o aceite do termo de consentimento, e a decisão fica registrada no banco (`visitante.termo_consentimento`).
+* O cadastro de visitante só é aceito com o aceite do termo de consentimento, e a decisão fica registrada no banco (`visitante.termo_consentimento`).
 * O CPF aparece mascarado no painel de gestão.
 * O QR Code da visita é renovado a cada 8 segundos e expira em 15 minutos.
+* Cada entrada e saída fica registrada para auditoria (`registro_acesso`).
+* A enfermagem pode revogar o acesso de um visitante; a data e o motivo ficam gravados (`visitante_vinculo`).
 
 ---
 
